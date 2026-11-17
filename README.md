@@ -46,8 +46,11 @@ From `2026.11.10.1`, setup selects the app signing key automatically based on th
 
 Home Assistant Core **2023.6.0 or newer**, see [hacs.json](hacs.json). The state of the versions actually tested is described in [TESTING.md](docs/TESTING.md).
 
-1. In HACS, add `https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration` under **Custom repositories** as an **Integration**.
-2. Install **Cat Litter Hub** and restart Home Assistant.
+1. Search for **Cat Litter Hub** in HACS (Home Assistant 2026.10 and older) or in
+   **Settings → Marketplace** (2026.11 and newer), or use the *HACS · Marketplace* badge above.
+   If the search does not find it, add `https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration`
+   as a custom repository (category **Integration**) in the same place first.
+2. Download **Cat Litter Hub** and restart Home Assistant.
 3. Under **Settings → Devices & services → Add integration**, search for **Cat Litter Hub** (the brands UPET, UBPet, AIRROBO, Robotail and Meowant find the entry as well).
 
 ### Switching from the UPET integration or a fork

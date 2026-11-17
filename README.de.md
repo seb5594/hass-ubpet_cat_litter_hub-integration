@@ -32,8 +32,8 @@ Ab `2026.11.10.1` wählt die Einrichtung den App-Signaturschlüssel anhand von A
 
 Home Assistant Core **ab 2023.6.0**, siehe [hacs.json](hacs.json). Den Stand der tatsächlich geprüften Versionen beschreibt [TESTEN.md](docs/TESTING.md).
 
-1. In HACS unter **Benutzerdefinierte Repositories** `https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration` als **Integration** hinzufügen.
-2. **Cat Litter Hub** installieren und Home Assistant neu starten.
+1. Suche in HACS (Home Assistant 2026.10 und älter) oder unter **Einstellungen → Marketplace** (2026.11 und neuer) nach **Cat Litter Hub**, oder nutze das Badge *HACS · Marketplace* oben. Findet die Suche es nicht, füge `https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration` am selben Ort zuerst als benutzerdefiniertes Repository hinzu (Kategorie **Integration**).
+2. **Cat Litter Hub** herunterladen und Home Assistant neu starten.
 3. Unter **Einstellungen → Geräte & Dienste → Integration hinzufügen** nach **Cat Litter Hub** suchen (auch die Marken UPET, UBPet, AIRROBO, Robotail und Meowant finden den Eintrag).
 
 ### Umstieg von der UPET-Integration oder einem Fork
