@@ -32,3 +32,9 @@ def test_bundled_vendor_key_file_is_rejected_even_before_recording(tmp_path):
     (tmp_path / "vendor_app_keys.json").write_text('{"fixture":"not-a-vendor-key"}')
     with pytest.raises(ValueError, match="vendor_app_keys"):
         provenance.distribution_files(tmp_path)
+
+
+def test_windows_line_ending_conversion_cannot_create_a_different_linux_archive(tmp_path):
+    (tmp_path / "fixture.py").write_bytes(b"# fixture\r\n")
+    with pytest.raises(ValueError, match="LF"):
+        provenance.distribution_files(tmp_path)

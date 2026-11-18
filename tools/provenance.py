@@ -26,7 +26,10 @@ def distribution_files(folder=COMPONENT):
         relative = path.relative_to(folder).as_posix()
         if path.is_symlink() or path.name in _FORBIDDEN or any(part.startswith(".") for part in Path(relative).parts):
             raise ValueError(f"Unerlaubter Paketinhalt: {relative}")
-        result[relative] = hashlib.sha256(path.read_bytes()).hexdigest()
+        contents = path.read_bytes()
+        if path.suffix != ".png" and b"\r\n" in contents:
+            raise ValueError(f"LF-Zeilenenden gemäß .gitattributes erforderlich: {relative}")
+        result[relative] = hashlib.sha256(contents).hexdigest()
     return result
 
 
@@ -65,7 +68,7 @@ def record(review):
     data = {"schema": 1, "review": review, "license": "MIT", "legal_clearance": "not_asserted",
             "scope": "Current installable component only; no retroactive grant for earlier releases.", "files": rows}
     INVENTORY.parent.mkdir(exist_ok=True)
-    INVENTORY.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    INVENTORY.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 
 
 def main():

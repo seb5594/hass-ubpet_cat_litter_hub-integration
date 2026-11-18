@@ -123,7 +123,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     result = run(args.sources_root, args.fetch)
-    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"{result['snapshot_count']} Stände, {result['python_source_blobs']} Python-Blobs; "
           f"{len(result['python_matches'])} Python- und {len(result['translation_matches'])} Textfundstellen")
 
