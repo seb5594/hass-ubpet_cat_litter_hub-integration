@@ -21,7 +21,7 @@
       },
       "account": {
         "title": "{provider}: account and server",
-        "description": "Select the account region and the country selected in the app. Suggested from your Home Assistant settings: {suggestion}. This is only a suggestion; the app's account region decides. Meowant uses the NA/global server even for accounts in other countries.",
+        "description": "Select the account region and the country selected in the app. Suggested from your Home Assistant settings: {suggestion}. This is only a suggestion; the app's account region decides. Meowant uses the NA/global server even for accounts in other countries. A compatible app signing key from existing local entries is reused when the key field is left blank.",
         "data": {
           "region": "Account server region",
           "country": "Account country (app)",

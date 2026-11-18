@@ -10,7 +10,11 @@
       "category": "project-source"
     },
     "api.py": {
-      "sha256": "72cb282e263579c66070afc668c81b209cfc55d09d589daac40879fab88e543b",
+      "sha256": "1531e72939ad68f0583dc84258970a00291fb648c2892cb7f378814dcdce932d",
+      "category": "project-source"
+    },
+    "app_credentials.py": {
+      "sha256": "dbb7cf7454a07c4f180d3bfe28399a563c18d651a34857a377c4b2f69e8af162",
       "category": "project-source"
     },
     "binary_sensor.py": {
@@ -46,7 +50,7 @@
       "category": "project-source"
     },
     "cloud_http.py": {
-      "sha256": "e0b961f11805cdd65ab9076e419a44da262289d86b853bbde78b06d8e5e60e0a",
+      "sha256": "d4ff6571cd9a6e27086a668832ff33b62f7f0ae185eb836089c2de19f7f0eb92",
       "category": "project-source"
     },
     "compat.py": {
@@ -54,7 +58,7 @@
       "category": "project-source"
     },
     "config_flow.py": {
-      "sha256": "923a5500a35d84577c33608eab3c3617813cf1d235b5f9fcf10933da20162462",
+      "sha256": "b743c5c80f51705686bf5fbbd45bbc98110c0d06e359aca34820fc3ba386aa5b",
       "category": "project-source"
     },
     "const.py": {
@@ -85,6 +89,10 @@
       "sha256": "5acd23ebaf17768f9430adb5b26d93ee624038b51981225b9e1fac246d65d419",
       "category": "project-source"
     },
+    "http_profile.json": {
+      "sha256": "896ae8ec765bade214e33da51b946ecbe6b7118020ee2d1ae08aef1a5bec739d",
+      "category": "compatibility-data"
+    },
     "legacy.py": {
       "sha256": "2aad18919bbb499ed2c13041b9205ffdbb9b361db5ce819603473bf887f454fc",
       "category": "project-source"
@@ -98,7 +106,7 @@
       "category": "license-notice"
     },
     "manifest.json": {
-      "sha256": "df70c094579267dbcaffb46bd14b140b4802b9560d18eb54d60ecdccd2573d70",
+      "sha256": "646e112601d2d5d76a1a453efa9fd4c1bdb8f524795cb7936f05028adafeffc9",
       "category": "project-source"
     },
     "metrics.json": {
@@ -130,7 +138,7 @@
       "category": "project-source"
     },
     "readings.py": {
-      "sha256": "1bd97951d93f3edde0df684e38c9018480f9e0d24e8799bf0cf422a1aad9830b",
+      "sha256": "e9105227cc051556da0f454dbb3018527ccb2a98b6f635eb1f3349c2294a067d",
       "category": "project-source"
     },
     "select.py": {
@@ -142,11 +150,11 @@
       "category": "project-source"
     },
     "settings.py": {
-      "sha256": "fef782884480c090340d5af30e5c8c202bd0e4e6aa4300b351ae520f507c95d7",
+      "sha256": "72a7d7524a5828e4a07e10bfd78e0a2d0ebb14b6f6a828310486908d9146af6c",
       "category": "project-source"
     },
     "strings.json": {
-      "sha256": "2c38f9b24977a25014508bbd2e9602bee9554631969cde218d0fe3e5b5aaa505",
+      "sha256": "4b1da56b92cea356feb49eac38d37920f5d7dc026ae06512f4995357ec7ba79f",
       "category": "project-source"
     },
     "switch.py": {
@@ -166,11 +174,11 @@
       "category": "project-source"
     },
     "translations/de.json": {
-      "sha256": "7beac1b9eae018f08f4605ce243c6466553e42353ff30dc077de5dfe8cc6b3fd",
+      "sha256": "4f62e60ea3fdcadf88120eebe7d9dee2705e54fea5703a41be2c5a49643d13be",
       "category": "project-source"
     },
     "translations/en.json": {
-      "sha256": "2c38f9b24977a25014508bbd2e9602bee9554631969cde218d0fe3e5b5aaa505",
+      "sha256": "4b1da56b92cea356feb49eac38d37920f5d7dc026ae06512f4995357ec7ba79f",
       "category": "project-source"
     },
     "translations/es.json": {

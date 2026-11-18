@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections.abc import Mapping
 from datetime import datetime, timezone
 
-from .box_config import empty_waste_bin_reminder_config, mask_days, mask_preset, reminder_mask
+from .box_config import empty_waste_bin_reminder_config, mask_days, mask_preset, reminder_mask, seconds_to_minutes
 from .history import remaining_uses, timestamp, waste_full
 
 BOX_FIELDS = {
@@ -114,8 +114,7 @@ def box_reading(key, box, *, rest_at=None, mqtt_at=None):
         jobs = at_path(box, "config", "taskConfigList")
         return sum(at_path(job, "openSwitch") == 1 for job in jobs) if isinstance(jobs, list) else None
     if key == "auto_clean_delay_current":
-        value = at_path(box, "config", "lazyTime")
-        return value / 60 if isinstance(value, (float, int)) and not isinstance(value, bool) else None
+        return seconds_to_minutes(at_path(box, "config", "lazyTime"))
     if key == "waste_bin_last_reset":
         value = at_path(box, "box_use_times", "boxUseTimesResetTime")
         try:
@@ -160,10 +159,10 @@ def box_attributes(key, box, serial):
         reminder = empty_waste_bin_reminder_config(at_path(box, "config") or {})
         attributes["days"] = mask_days(reminder_mask(reminder or {}))
     elif key.startswith("mqtt_"):
+        live = at_path(box, "mqtt_state") or {}
         for field in ("w_mode", "w_state", "w_cause", "w_state_app_raw_name"):
-            value = at_path(box, "mqtt_state", field)
-            if value is not None:
-                attributes[field] = value
+            if field in live:
+                attributes[field] = live[field]
     return attributes
 
 

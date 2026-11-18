@@ -1,0 +1,930 @@
+{
+  "reference_commit": "79d669d",
+  "cases": [
+    {
+      "client_method": "get_devices",
+      "args": [],
+      "kwargs": {},
+      "reply_data": [],
+      "request": {
+        "method": "GET",
+        "path": "/user-service-rest/v2/robot/common/device/list",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_cats",
+      "args": [],
+      "kwargs": {},
+      "reply_data": [],
+      "request": {
+        "method": "GET",
+        "path": "/catbox-server/web/cat/info",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_all_config",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": {},
+      "request": {
+        "method": "GET",
+        "path": "/catbox-server/box/config/allConfig?serialNumber=fixture-box",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_box_use_times",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": {},
+      "request": {
+        "method": "GET",
+        "path": "/catbox-server/box/config/box-use-times/?serialNumber=fixture-box",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_deodorant_status",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": {},
+      "request": {
+        "method": "GET",
+        "path": "/catbox-server/app/deodorant-block/status?serialNumber=fixture-box",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_device_online",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": {},
+      "request": {
+        "method": "GET",
+        "path": "/v1/ubtechinc-im-manager/im/online/device/?sn=fixture-box",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_capabilities",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": [],
+      "request": {
+        "method": "GET",
+        "path": "/catbox-server/box/config/device/capabilities?sn=fixture-box",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_im_credentials",
+      "args": [],
+      "kwargs": {},
+      "reply_data": {},
+      "request": {
+        "method": "POST",
+        "path": "/v1/ubtechinc-im-manager/im/login",
+        "timeout": 20,
+        "body": {
+          "type": 2
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_im_friends",
+      "args": [],
+      "kwargs": {},
+      "reply_data": [],
+      "request": {
+        "method": "GET",
+        "path": "/v1/ubtechinc-im-manager/im/friends",
+        "timeout": 20,
+        "body": null,
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_box_records",
+      "args": [
+        "fixture-box",
+        0,
+        100
+      ],
+      "kwargs": {},
+      "reply_data": {
+        "records": []
+      },
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/web/box/record/new",
+        "timeout": 20,
+        "body": {
+          "eventTime": "0",
+          "serialNumber": "fixture-box",
+          "size": 100,
+          "messageType": 0
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "get_box_records",
+      "args": [
+        "fixture-box",
+        1,
+        100
+      ],
+      "kwargs": {},
+      "reply_data": {
+        "records": []
+      },
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/web/box/record/new",
+        "timeout": 20,
+        "body": {
+          "eventTime": "0",
+          "serialNumber": "fixture-box",
+          "size": 100,
+          "messageType": 1
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "reset_box_use_times",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/box-use-times/reset",
+        "timeout": 20,
+        "body": {
+          "boxUseTimes": 0,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "reset_deodorant",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/app/deodorant-block/replaced",
+        "timeout": 20,
+        "body": {
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_deodorant_alert",
+      "args": [
+        "fixture-box",
+        true
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/app/deodorant-block/switch",
+        "timeout": 20,
+        "body": {
+          "alertSwitch": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_deodorant_alert",
+      "args": [
+        "fixture-box",
+        false
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/app/deodorant-block/switch",
+        "timeout": 20,
+        "body": {
+          "alertSwitch": 0,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_auto_clean_delay",
+      "args": [
+        "fixture-box",
+        1,
+        false
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 2,
+          "controlSwitch": 0,
+          "optionInt": 60,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_auto_clean_delay",
+      "args": [
+        "fixture-box",
+        60,
+        true
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 2,
+          "controlSwitch": 1,
+          "optionInt": 3600,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_auto_clean_enabled",
+      "args": [
+        "fixture-box",
+        false,
+        120
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 2,
+          "controlSwitch": 0,
+          "optionInt": 120,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_auto_clean_enabled",
+      "args": [
+        "fixture-box",
+        true,
+        0
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 2,
+          "controlSwitch": 1,
+          "optionInt": 480,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        0,
+        false
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 0,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        0,
+        true
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 0,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        1,
+        false
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 1,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        1,
+        true
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 1,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        6,
+        false
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 6,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        6,
+        true
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 6,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        7,
+        false
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 7,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_function_switch",
+      "args": [
+        "fixture-box",
+        7,
+        true
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "timeout": 20,
+        "body": {
+          "functionType": 7,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_box_full_alert",
+      "args": [
+        "fixture-box",
+        25
+      ],
+      "kwargs": {},
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/box-full-alert",
+        "timeout": 20,
+        "body": {
+          "boxFullAlertTimes": 25,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_time_point",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {
+        "config_id": 8,
+        "function_type": 1,
+        "open_switch": 1,
+        "time_hour": 19,
+        "time_minute": 30,
+        "option_int": 28
+      },
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "timeout": 20,
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 19,
+          "timeMinute": 30,
+          "optionInt": 28,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    },
+    {
+      "client_method": "set_time_period",
+      "args": [
+        "fixture-box"
+      ],
+      "kwargs": {
+        "config_id": 9,
+        "function_type": 1,
+        "open_switch": 0,
+        "start_hour": 23,
+        "start_minute": 0,
+        "end_hour": 6,
+        "end_minute": 30
+      },
+      "reply_data": null,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePeriod/update",
+        "timeout": 20,
+        "body": {
+          "configId": 9,
+          "functionType": 1,
+          "openSwitch": 0,
+          "startTimeHour": 23,
+          "startTimeMinute": 0,
+          "endTimeHour": 6,
+          "endTimeMinute": 30,
+          "serialNumber": "fixture-box"
+        },
+        "headers": {
+          "x-ubt-language": "en",
+          "x-ubt-deviceid": "fixture-device",
+          "content-type": "application/json; charset=utf-8",
+          "accept": "application/json",
+          "x-ubt-appid": "fixture-app",
+          "priority": "u=3, i",
+          "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0",
+          "x-ubt-sign": "0773a1f9047aea1c50ea2f7a56945bc0 1234567890 AAAAAAAAAA v2",
+          "authorization": "fixture-token",
+          "product": "fixture-product"
+        }
+      }
+    }
+  ]
+}

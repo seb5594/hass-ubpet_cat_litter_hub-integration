@@ -14,6 +14,7 @@ from .box_config import (
     mask_preset,
     period_config_id,
     reminder_mask,
+    seconds_to_minutes,
 )
 from .readings import at_path
 
@@ -67,7 +68,7 @@ class Setting:
         if self.platform == "switch":
             return None if raw is None else raw == 1
         if self.family == "auto":
-            return raw / 60 if isinstance(raw, (int, float)) and not isinstance(raw, bool) else None
+            return seconds_to_minutes(raw)
         return raw
 
 

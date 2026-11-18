@@ -60,7 +60,7 @@ def record(review):
         category = "project-source"
         if name.startswith("brand/"):
             category = "project-artwork"
-        elif name in {"mobile_apps.json", "providers.json", "metrics.json"}:
+        elif name in {"mobile_apps.json", "providers.json", "metrics.json", "http_profile.json"}:
             category = "compatibility-data"
         elif name.startswith("LICENSE"):
             category = "license-notice"

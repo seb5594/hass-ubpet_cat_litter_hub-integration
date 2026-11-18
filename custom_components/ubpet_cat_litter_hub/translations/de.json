@@ -21,7 +21,7 @@
       },
       "account": {
         "title": "{provider}: Konto und Server",
-        "description": "Wähle die Kontoregion und das in der App gewählte Land. Vorschlag anhand deiner Home-Assistant-Einstellungen: {suggestion}. Das ist nur ein Vorschlag; maßgeblich ist die Kontoregion in der App. Meowant nutzt auch für andere Länder den NA/globalen Server.",
+        "description": "Wähle die Kontoregion und das in der App gewählte Land. Vorschlag anhand deiner Home-Assistant-Einstellungen: {suggestion}. Das ist nur ein Vorschlag; maßgeblich ist die Kontoregion in der App. Meowant nutzt auch für andere Länder den NA/globalen Server. Ein passender App-Schlüssel aus vorhandenen lokalen Einträgen wird automatisch verwendet, wenn das Schlüsselfeld leer bleibt.",
         "data": {
           "region": "Serverregion des Kontos",
           "country": "Kontoland (aus der App)",

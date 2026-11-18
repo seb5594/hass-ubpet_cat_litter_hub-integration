@@ -5,6 +5,7 @@ import hashlib
 import json
 from collections import deque
 from contextlib import contextmanager
+from pathlib import Path
 from types import SimpleNamespace
 
 import pytest
@@ -12,6 +13,7 @@ from test_history import load, privacy
 
 api = load("api")
 http = load("cloud_http")
+HTTP_CONTRACT = json.loads((Path(__file__).parents[1] / "fixtures/2026.11.10.1-http-contract.json").read_text(encoding="utf-8"))
 
 
 def session(token="first"):
@@ -159,6 +161,48 @@ def test_signature_bytes(monkeypatch):
     actual = http.HeaderSigner("app-key").header("device-id")
     expected = hashlib.md5(b"1234567890app-keyAAAAAAAAAAdevice-id").hexdigest()
     assert actual == expected + " 1234567890 AAAAAAAAAA v2"
+
+
+@pytest.mark.parametrize("case", HTTP_CONTRACT["cases"], ids=lambda case: case["client_method"])
+def test_http_requests_preserve_the_pre_rewrite_contract(case, monkeypatch):
+    calls = []
+
+    @contextmanager
+    def respond(request, *, timeout):
+        calls.append({"method": request.get_method(), "path": request.selector, "timeout": timeout,
+                      "body": json.loads(request.data) if request.data is not None else None,
+                      "headers": {key.lower(): value for key, value in request.header_items()}})
+        yield SimpleNamespace(status=200, read=lambda: json.dumps({"code": 0, "data": case["reply_data"]}).encode())
+
+    monkeypatch.setattr(http.request, "urlopen", respond)
+    monkeypatch.setattr(http.time, "time", lambda: 1234567890)
+    monkeypatch.setattr(http.secrets, "choice", lambda _: "A")
+    client = api.UbpetClient(account="fixture@example.test", password="fixture-password", app_key="fixture-key",
+                             device_id="fixture-device", base_url="https://fixture.example.test",
+                             app_id="fixture-app", product="fixture-product")
+    client.auth = api.UbpetAuth("fixture-token", None, None, 42)
+    getattr(client, case["client_method"])(*case["args"], **case["kwargs"])
+    assert calls == [case["request"]]
+
+
+@pytest.mark.parametrize("expiry", [None, 0, ""])
+def test_unknown_token_expiry_does_not_trigger_a_new_login_each_request(client, server, expiry):
+    calls, replies = server
+    payload = session()
+    payload["token"]["expireAt"] = expiry
+    replies.extend([(200, payload), (200, {"data": []}), (200, {"data": []})])
+    client.login()
+    assert client.get_devices() == client.get_devices() == []
+    assert [call[0] for call in calls] == ["PUT", "GET", "GET"]
+
+
+@pytest.mark.parametrize("user", [None, "unavailable", []])
+def test_optional_user_profile_does_not_prevent_token_login(client, server, user):
+    _, replies = server
+    payload = session()
+    payload["user"] = user
+    replies.append((200, payload))
+    assert client.login().user_id is None
 
 
 def test_optional_failure_leaves_device_and_marks_section_stale(client, monkeypatch):

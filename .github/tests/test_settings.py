@@ -31,6 +31,13 @@ def test_planning_is_pure_and_preserves_disabled_auto_clean(box):
     assert box["config"]["sensorSwitch"] == 0
 
 
+@pytest.mark.parametrize("seconds", [120, "120"])
+def test_delay_measurements_accept_numeric_strings_as_before(box, seconds):
+    box["config"]["lazyTime"] = seconds
+    assert settings.SETTINGS["auto_clean_delay"].read(box) == 2
+    assert readings.box_reading("auto_clean_delay_current", box) == 2
+
+
 def test_clock_change_preserves_other_boundary_and_disabled_schedule(box):
     plan = settings.plan_setting("do_not_disturb_start", time(23, 30), box)
     assert plan.method == "set_time_period"

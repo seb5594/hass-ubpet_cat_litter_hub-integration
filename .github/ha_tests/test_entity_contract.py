@@ -29,6 +29,8 @@ def account():
         config_entry=None, last_update_success=True, hass=SimpleNamespace(),
         cat_identifier=lambda key: "cat_fixture-account_" + key, async_add_listener=MagicMock(),
         setting_locks={}, async_update_listeners=MagicMock(), schedule_refresh=MagicMock(),
+        transport=SimpleNamespace(connected=False), history=SimpleNamespace(state={"streams": {}}),
+        cat_poo_duration_threshold=lambda key: 100,
     )
 
 
@@ -52,8 +54,14 @@ async def test_all_released_entity_identities_and_statistics_metadata_survive():
     assert actual.keys() == expected.keys()
     for identity, row in expected.items():
         for field, value in row.items():
-            if field not in {"platform", "unique_id"}:
+            if field not in {"platform", "unique_id", "value_property", "expected_value", "expected_attributes"}:
                 assert getattr(actual[identity].entity_description, field) == value, (identity, field)
+        if "value_property" in row:
+            value = getattr(actual[identity], row["value_property"])
+            normalized = json.loads(json.dumps(value, default=lambda item: item.isoformat()))
+            assert normalized == row["expected_value"], identity
+        if "expected_attributes" in row:
+            assert actual[identity].extra_state_attributes == row["expected_attributes"], identity
 
 
 async def test_concurrent_period_edits_preserve_both_accepted_changes():

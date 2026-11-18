@@ -78,8 +78,9 @@ class UbpetClient:
         details = payload["token"]
         if not isinstance(details.get("token"), str) or not details["token"]:
             raise UbpetApiError(200, {"code": "missing_token"})
-        user = payload.get("user") or {}
-        return UbpetAuth(details["token"], details.get("refreshToken"), details.get("expireAt"), user.get("userId"))
+        user = payload.get("user")
+        owner = user.get("userId") if isinstance(user, dict) else None
+        return UbpetAuth(details["token"], details.get("refreshToken"), details.get("expireAt"), owner)
 
     def _new_session(self):
         kinds = ["1", "0", "2"] if "@" in self.account else ["0", "1", "2"]
@@ -102,7 +103,7 @@ class UbpetClient:
         if self.auth is None or self.auth.token == rejected:
             return False
         expiry = self.auth.expires_at_ms
-        return expiry is None or float(expiry) > (time.time() + 300) * 1000
+        return not expiry or float(expiry) > (time.time() + 300) * 1000
 
     def _access_session(self, rejected=None, force=False):
         with self._auth_lock:
@@ -185,7 +186,7 @@ class UbpetClient:
     def set_auto_clean_enabled(self, serial_number, enabled, lazy_time_seconds):
         if lazy_time_seconds is None:
             raise ValueError("Automatic cleaning delay is unknown")
-        delay = lazy_time_seconds
+        delay = lazy_time_seconds or 480
         self._device_write("switch", serial_number, optionInt=delay, controlSwitch=int(enabled), functionType=2)
 
     def set_function_switch(self, serial_number, function_type, enabled):

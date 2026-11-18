@@ -8,8 +8,11 @@ import secrets
 import string
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 from urllib import error, parse, request
+
+_PROFILE = json.loads(Path(__file__).with_name("http_profile.json").read_text(encoding="utf-8"))
 
 
 class UbpetApiError(RuntimeError):
@@ -61,14 +64,8 @@ class CloudHTTP:
         self.signer = HeaderSigner(key)
 
     def exchange(self, route: Route, fields=None, *, token=None):
-        headers = dict(
-            accept="application/json", **{
-                "content-type": "application/json; charset=utf-8",
-                "user-agent": "CatLitterHub/HomeAssistant", "x-ubt-language": "en",
-                "x-ubt-deviceid": self.installation, "x-ubt-appid": self.application,
-                "x-ubt-sign": self.signer.header(self.installation),
-            },
-        )
+        headers = {**_PROFILE["headers"], "x-ubt-deviceid": self.installation,
+                   "x-ubt-appid": self.application, "x-ubt-sign": self.signer.header(self.installation)}
         if token is not None:
             headers["authorization"], headers["product"] = token, self.product
         url = self.origin + route.path
@@ -80,7 +77,7 @@ class CloudHTTP:
                 body = json.dumps(fields, separators=(",", ":")).encode("utf-8")
         outgoing = request.Request(url, headers=headers, data=body, method=route.method)
         try:
-            with request.urlopen(outgoing, timeout=20) as incoming:
+            with request.urlopen(outgoing, timeout=_PROFILE["timeout_seconds"]) as incoming:
                 status, raw = incoming.status, incoming.read()
         except error.HTTPError as failure:
             with failure:

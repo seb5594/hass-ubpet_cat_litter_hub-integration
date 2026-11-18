@@ -7,13 +7,20 @@ MIT was not supported. The reply in
 [CrazzyBerg/upet-hass#8](https://github.com/CrazzyBerg/upet-hass/issues/8) came
 from `royalgardist`, not the repository owner `CrazzyBerg`; it is not treated as
 permission for the owner's code. No permission is inferred for the other forks.
+The maintainer confirms that no official permission has been obtained; the
+chosen resolution is replacement of the unlicensed implementations, rather
+than relying on an outstanding grant.
 
-The 2026.11.18.1 candidate replaces the remaining platform implementations with
+The 2026.11.18.2 candidate replaces the remaining platform implementations with
 shared measurement adapters and a pure setting planner. `CloudHTTP` handles
 signed exchange separately from the account client's authentication and caching
 policy. The former switch classes, sensor helpers, time classes and duplicated
 setting write paths are removed. Registry IDs, wire fields, protocol parameters
-and storage compatibility are retained as interface data. The original research
+and storage compatibility are retained as interface data. The regression
+contracts cover 95 entity identities, 83 values, all 41 sensors' attributes and
+30 prior HTTP requests, including paths, JSON payloads, headers and signatures.
+`http_profile.json` records compatibility header data; it contains no signing key.
+The original research
 sources remain credited in [SOURCES.md](SOURCES.md).
 
 The [German audit](LIZENZPRUEFUNG.md) explains the scope and implementation choices.
@@ -32,8 +39,12 @@ External dependencies retain their own licenses and are not vendored in the ZIP.
 
 The candidate no longer distributes `vendor_app_keys.json` or loads signing
 keys from bundled files. Existing entries preserve their locally stored key.
-New entries require a key the user is authorized to use for the selected app
-and region. A generally available official third-party issuance process has
+Additional entries reuse an unambiguous locally stored application key only
+when HTTPS origin, port, base path, app ID and product match. No old Python
+implementation is imported and no stored key is exposed in the form. Explicit
+input takes precedence. Without a compatible local profile, new entries require
+a key the user is authorized to use for the selected app and region.
+A generally available official third-party issuance process has
 not been verified. This access question is separate from copyright in the
 integration source; MIT does not grant rights to vendor services or trademarks.
 

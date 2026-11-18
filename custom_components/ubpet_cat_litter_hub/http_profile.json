@@ -1,0 +1,10 @@
+{
+  "timeout_seconds": 20,
+  "headers": {
+    "accept": "application/json",
+    "content-type": "application/json; charset=utf-8",
+    "x-ubt-language": "en",
+    "priority": "u=3, i",
+    "user-agent": "CatLitterBoxOverseasEu/2.1.12 (com.ubtrobot.airpet.overseaseu; build:699; iOS 26.5.0) Alamofire/5.5.0"
+  }
+}

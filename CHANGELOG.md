@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026.11.18.2 — Kompatibilitätsverträge und lokale App-Schlüssel
+
+- Fehlende Upstream-Freigabe ausdrücklich dokumentieren; der gewählte Weg bleibt die eigene Umsetzung mit erhaltenem Verhalten.
+- Zusätzlich zu 95 Entitätskennungen auch 83 Zustandswerte, alle 41 Sensorattribute und 30 HTTP-Aufrufe gegen synthetische Ergebnisse des bisherigen Stands prüfen.
+- Vorhandene App-Schlüssel für weitere Konten desselben HTTPS-Servers, App- und Produktprofils lokal wiederverwenden. Bei Konflikten oder abweichenden Profilen keine automatische Auswahl treffen; Schlüssel nicht im Formular offenlegen.
+- Numerische Verzögerungswerte als Text weiter akzeptieren, bestehende HTTP-Header beibehalten und bei unbekannter Token-Ablaufzeit keine fortlaufenden Neuanmeldungen auslösen.
+
 ## 2026.11.18.1 — Herkunftsprüfung und neue Plattformadapter
 
 - Die im HACS-Review beanstandeten Implementierungen durch gemeinsame Messwertadapter, ein reines Einstellungsmodell und getrennten HTTP-Transport ersetzen. Alle 95 Referenzentitäten behalten Kennungen und Statistik-Metadaten.

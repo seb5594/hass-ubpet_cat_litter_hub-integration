@@ -83,9 +83,13 @@ async def coordinator(tmp_path, request):
     c._store.async_load = AsyncMock(return_value=None)
     c._store.async_save = AsyncMock()
     c._store.async_delay_save = MagicMock()
+    manager = hass.config_entries
+    if manager is None:
+        hass.config_entries = SimpleNamespace(async_entries=lambda *args: [])
     yield c
     await c.async_shutdown()
     if not shared:
+        hass.config_entries = manager
         await hass.async_stop()
 
 

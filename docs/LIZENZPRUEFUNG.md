@@ -1,4 +1,4 @@
-# Herkunftsprüfung für 2026.11.18.1
+# Herkunftsprüfung für 2026.11.18.2
 
 Der HACS-Review [#13798](https://github.com/hacs/default/pull/13798#pullrequestreview-5928093514)
 beanstandet zu Recht, dass die bisherige MIT-Angabe übernommenen Code ohne
@@ -6,6 +6,12 @@ nachgewiesene Freigabe einschloss. Die Antwort von `royalgardist` in
 [CrazzyBerg/upet-hass#8](https://github.com/CrazzyBerg/upet-hass/issues/8)
 ist keine belegte Freigabe des ursprünglichen Repository-Inhabers `CrazzyBerg`.
 Für die weiteren recherchierten Forks wird ebenfalls keine Freigabe unterstellt.
+
+Der Maintainer hat bestätigt, dass keine offizielle Freigabe vorliegt. Deshalb
+ist die gewählte Lösung die Ablösung der nicht freigegebenen Implementierungen.
+Eine Zustimmung des bisherigen Autors wird für diese Lösung weder behauptet
+noch als noch ausstehende Voraussetzung dargestellt. Ziel ist die Erhaltung
+des kompatiblen Verhaltens durch eigenen Code.
 
 Die Überarbeitung verfolgt den im Review genannten Weg einer neuen Umsetzung.
 Es wird keine nachträgliche Genehmigung für ältere Veröffentlichungen behauptet.
@@ -45,6 +51,15 @@ Kennungen, Einheiten, Zustands- und Geräteklassen, Enum-Werte, Kategorien und
 standardmäßige Aktivierung. Anzeigenamen können aus den aktuellen Übersetzungen
 stammen. Es werden weder Konto-, Geräte- noch Katzendaten echter Benutzer als
 Testdaten veröffentlicht.
+
+Der Referenzvertrag prüft außerdem **83 Zustandswerte** und die Zusatzattribute
+aller 41 Sensoren. Ein zweiter synthetischer Vertrag hält **30 HTTP-Aufrufe**
+des bisherigen Stands fest: Methode, Pfad, JSON-Inhalt, Header, Signatur und
+Timeout. Die neue Implementierung wird gegen diese festen Ergebnisse geprüft,
+ohne den früheren Code als Laufzeitabhängigkeit mitzuliefern. Das betrifft die
+Anmeldung und Gerätebefehle ebenso wie die zugehörigen Tests für MQTT-Nachrichten,
+Besuchsverlauf und Bewegungssperren. Diese Tests belegen die erfassten Fälle,
+keine vollständige Äquivalenz jedes denkbaren Geräteverhaltens.
 
 Änderungen an demselben Zeitplan laufen je Box nacheinander. Erst nach einer
 erfolgreichen REST-Antwort werden die bestätigten Felder übernommen. Eine
@@ -111,9 +126,18 @@ Quellcode mitgeliefert; seine eigene Lizenz bleibt maßgeblich.
 `vendor_app_keys.json` und der automatische Bezug daraus wurden entfernt.
 Neue Pakete enthalten keine dieser Hersteller-Signierwerte. Bestehende oder
 migrierte Konten verwenden ihren lokal gespeicherten Schlüssel weiter. Bei
-einer neuen Einrichtung ist ein zur Verwendung freigegebener Schlüssel für
-die gewählte App und Region erforderlich. Beim Wechsel der App-Region wird
-ein alter Schlüssel nicht automatisch für den neuen Kontext übernommen.
+einem weiteren Konto wird ein bereits lokal gespeicherter App-Schlüssel
+automatisch wiederverwendet, wenn HTTPS-Server samt Port und Basispfad, App-ID
+und Produktkennung exakt passen. Es werden ausschließlich Konfigurationsdaten
+gelesen und keine Python-Dateien alter Integrationen importiert. Widersprechen
+sich gespeicherte Schlüssel, erfolgt keine automatische Auswahl. Ein explizit
+eingegebener Schlüssel hat Vorrang; gespeicherte Schlüssel werden im Formular
+nicht angezeigt oder vorausgefüllt.
+
+Ohne passendes lokales Profil ist bei einer neuen Einrichtung ein zur
+Verwendung freigegebener Schlüssel für die gewählte App und Region erforderlich.
+Beim Wechsel der App-Region wird ein alter Schlüssel nicht automatisch für
+einen anderen Server oder eine andere App übernommen.
 Eine allgemein verfügbare offizielle Ausgabestelle für Fremdintegrationen ist
 nicht verifiziert. Ohne einen zulässig verwendbaren Schlüssel ist deshalb
 keine neue Cloud-Verbindung möglich. Das ist eine separate Frage des
@@ -121,10 +145,11 @@ Dienstzugangs und kein Nachweis über die Lizenz des Integrationscodes.
 
 ## Vor erneuter HACS-Prüfung
 
-1. Diesen Änderungsstand einschließlich des Herkunftsinventars prüfen. Offene
-   Rechtefragen mit den tatsächlichen Rechteinhabern klären; gegebenenfalls
-   fachkundigen rechtlichen Rat einholen. Der technische Bericht kann keine
-   verbindliche rechtliche Freigabe geben.
+1. Diesen Änderungsstand einschließlich des Herkunftsinventars prüfen. Weitere
+   Fundstellen nicht freigegebener Implementierungen müssen ebenfalls abgelöst
+   werden. Die fehlende Upstream-Freigabe wird nicht durch eine Lizenzdatei
+   ersetzt. Der technische Bericht kann keine verbindliche rechtliche
+   Freigabe geben; verbleibende rechtliche Fragen sind fachkundig einzuordnen.
 2. Bestehenden C20-Eintrag mit Backup aktualisieren und den Ablauf aus
    [TESTING.md](TESTING.md) prüfen. Eine erfolgreiche Prüfung von
    `v2026.11.03.2` gilt nicht als Gerätetest dieses neuen Clients.
