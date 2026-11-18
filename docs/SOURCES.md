@@ -1,3 +1,5 @@
+> Historical research inventory. Protocol findings are credited here; these links are not license grants. The 2026.11.18.1 rewrite and the immutable comparison snapshots are documented in [PROVENANCE.md](PROVENANCE.md) and [LIZENZPRUEFUNG.md](LIZENZPRUEFUNG.md). The reply in upstream issue #8 is not treated as permission from the repository owner.
+
 # Sources and open findings
 
 As of 2 November 2026. Covered were the original, all ten direct forks returned by the public fork API and the additional PnnnG sub-fork: twelve repositories in total. The GitHub UI counts the network including the sub-fork as eleven forks. Private, deleted or otherwise unfindable historical forks are therefore not covered.

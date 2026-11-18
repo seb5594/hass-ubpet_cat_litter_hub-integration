@@ -18,7 +18,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 
 from custom_components.ubpet_cat_litter_hub.api import UbpetApiError, UbpetClient
-from custom_components.ubpet_cat_litter_hub.button import MQTT_BUTTONS, UbpetMqttCommandButton
+from custom_components.ubpet_cat_litter_hub.button import MQTT_BUTTONS, CommandButton
 from custom_components.ubpet_cat_litter_hub.config_flow import UbpetConfigFlow
 from custom_components.ubpet_cat_litter_hub.coordinator import UbpetDataUpdateCoordinator
 from custom_components.ubpet_cat_litter_hub.entities import setup_discovery
@@ -26,7 +26,7 @@ from custom_components.ubpet_cat_litter_hub.history import History, presence, re
 from custom_components.ubpet_cat_litter_hub.mqtt import build_risp_frame, field_varint, summarize_risp_frame
 from custom_components.ubpet_cat_litter_hub.privacy import redact
 from custom_components.ubpet_cat_litter_hub.providers import account_unique_id, credentials, endpoint, suggest_region
-from custom_components.ubpet_cat_litter_hub.sensor import CAT_SENSORS, DEVICE_SENSORS, UbpetCatSensor, UbpetDeviceSensor
+from custom_components.ubpet_cat_litter_hub.sensor import CAT_SENSORS, DEVICE_SENSORS, MetricSensor
 
 UTC = timezone.utc
 COMPONENT = Path(__file__).resolve().parents[2] / "custom_components/ubpet_cat_litter_hub"
@@ -244,7 +244,7 @@ async def test_account_cat_devices_do_not_collide(coordinator):
     try:
         assert c.cat_identifier("7") != other.cat_identifier("7")
         c.data = {"devices": {}, "cats": [{"catInfoId": 7}]}
-        entity = UbpetCatSensor(c, c.entry.entry_id, "7", CAT_SENSORS[0])
+        entity = MetricSensor(c, "cat", "7", CAT_SENSORS[0])
         assert entity.unique_id == "account1_cat_7_cat_weight"
         assert entity.available
         c.data["cats"] = []
@@ -275,8 +275,8 @@ async def test_commands_require_current_session_state_and_no_cat(coordinator):
     }
     c.transport.connected = True
     c.transport.connected_since = NOW
-    button = UbpetMqttCommandButton(
-        c, c.entry.entry_id, "SN", next(d for d in MQTT_BUTTONS if d.service_id == "start_clean_up")
+    button = CommandButton(
+        c, "box", "SN", next(d for d in MQTT_BUTTONS if d.service_id == "start_clean_up")
     )
     assert not button.available
     c._last_mqtt_update_at_by_serial["SN"] = NOW
@@ -320,7 +320,7 @@ async def test_box_last_visit_keeps_timestamp_and_exposes_recorded_details(coord
     )
     coordinator.data = await coordinator._async_update_data()
     description = next(sensor for sensor in DEVICE_SENSORS if sensor.key == "last_visit")
-    sensor = UbpetDeviceSensor(coordinator, coordinator.namespace, "SN", description)
+    sensor = MetricSensor(coordinator, "box", "SN", description)
 
     assert sensor.native_value == NOW
     assert sensor.extra_state_attributes == {
@@ -388,7 +388,6 @@ async def test_new_app_setup_requires_a_signing_key_before_contacting_the_vendor
     flow = UbpetConfigFlow()
     flow.hass = coordinator.hass
     with (
-        patch("custom_components.ubpet_cat_litter_hub.providers._BUNDLED_SIGNING_KEYS", {}),
         patch("custom_components.ubpet_cat_litter_hub.config_flow._validate") as validate,
     ):
         result = await flow.async_step_account(
@@ -398,36 +397,22 @@ async def test_new_app_setup_requires_a_signing_key_before_contacting_the_vendor
     validate.assert_not_called()
 
 
-@pytest.mark.parametrize(
-    ("provider", "region", "app_profile"),
-    [
-        ("upet", "eu", "upet"),
-        ("upet", "na", "airpet"),
-        ("airpet", "eu", "airpet"),
-        ("robotail", "eu", "robotail"),
-        ("meowant", "na", "airpet"),
-        ("airpet_ubtrobot", "global", "airpet"),
-    ],
-)
-async def test_bundled_profile_hides_key_field_and_supplies_the_selected_key(coordinator, provider, region, app_profile):
+@pytest.mark.parametrize(("provider", "region"), [("upet", "eu"), ("airpet", "na"), ("robotail", "eu"), ("meowant", "na")])
+async def test_new_provider_account_uses_only_the_user_supplied_key(coordinator, provider, region):
     flow = UbpetConfigFlow()
     flow.hass = coordinator.hass
     flow._provider = provider
     flow._async_current_entries = MagicMock(return_value=[])
     flow.async_set_unique_id = AsyncMock()
     flow._abort_if_unique_id_configured = MagicMock()
-    keys = {app: f"fixture-{app}" for app in ("upet", "airpet", "robotail")}
-    with (
-        patch("custom_components.ubpet_cat_litter_hub.providers._BUNDLED_SIGNING_KEYS", keys),
-        patch("custom_components.ubpet_cat_litter_hub.config_flow._validate", return_value=[]),
-    ):
-        form = await flow.async_step_account()
-        assert "app_key" not in {field.schema for field in form["data_schema"].schema}
+    form = await flow.async_step_account()
+    assert "app_key" in {field.schema for field in form["data_schema"].schema}
+    with patch("custom_components.ubpet_cat_litter_hub.config_flow._validate", return_value=[]):
         result = await flow.async_step_account(
-            {"country": "DE", "region": region, "username": "test@example.test", "password": "pw"}
+            {"country": "DE", "region": region, "username": "test@example.test", "password": "pw", "app_key": "own-key"}
         )
     assert result["type"] == "create_entry"
-    assert result["data"]["app_key"] == keys[app_profile]
+    assert result["data"]["app_key"] == "own-key"
 
 
 async def test_reconfiguration_keeps_saved_key_only_for_the_existing_app_region(coordinator):
@@ -440,7 +425,6 @@ async def test_reconfiguration_keeps_saved_key_only_for_the_existing_app_region(
     }
     fields = {"country": "DE", "region": "na", "username": "test@example.test", "password": "pw"}
     with (
-        patch("custom_components.ubpet_cat_litter_hub.providers._BUNDLED_SIGNING_KEYS", {}),
         patch("custom_components.ubpet_cat_litter_hub.config_flow._validate") as validate,
     ):
         result, errors = await flow._async_submit(fields, old)
@@ -449,7 +433,6 @@ async def test_reconfiguration_keeps_saved_key_only_for_the_existing_app_region(
     flow.async_set_unique_id = AsyncMock()
     flow._abort_if_unique_id_configured = MagicMock()
     with (
-        patch("custom_components.ubpet_cat_litter_hub.providers._BUNDLED_SIGNING_KEYS", {"upet": "fixture-upet"}),
         patch("custom_components.ubpet_cat_litter_hub.config_flow._validate", return_value=[]),
     ):
         result, errors = await flow._async_submit({**fields, "region": "eu"}, old)
@@ -536,7 +519,7 @@ async def test_shutdown_is_idempotent(coordinator):
     coordinator._store.async_save.assert_awaited_once()
 
 
-async def test_every_platform_can_create_entities_from_null_tolerant_payload(hass, coordinator):
+async def test_every_platform_can_create_entities_from_null_tolerant_payload(coordinator):
     import importlib
 
     c = coordinator
@@ -564,10 +547,13 @@ async def test_every_platform_can_create_entities_from_null_tolerant_payload(has
         "cats": [{"catInfoId": 7, "nickname": "Cat"}],
     }
     c.hass.data.setdefault("ubpet_cat_litter_hub", {})[c.entry.entry_id] = c
+    from homeassistant.helpers import entity_registry as er
+    registry = SimpleNamespace(async_get_entity_id=lambda *args: None)
     added = []
     for name in ("sensor", "binary_sensor", "number", "switch", "time", "select", "button"):
         module = importlib.import_module("custom_components.ubpet_cat_litter_hub." + name)
-        await module.async_setup_entry(c.hass, c.entry, lambda entities: added.extend(entities))
+        with patch.object(er, "async_get", return_value=registry):
+            await module.async_setup_entry(c.hass, c.entry, lambda entities: added.extend(entities))
     keys = {entity.unique_id for entity in added}
     assert len({(type(entity).__module__, entity.unique_id) for entity in added}) == len(added)
     assert "account1_cat_7_poo_duration_threshold" in keys
@@ -585,7 +571,7 @@ async def test_wrong_password_is_not_retried_or_hidden_as_optional_error(coordin
     from custom_components.ubpet_cat_litter_hub.api import UbpetAuthenticationError
 
     api = coordinator.client
-    with patch.object(api, "_login_with_account_type", side_effect=UbpetApiError(200, {"code": 2002})) as login:
+    with patch.object(api, "_authenticate_kind", side_effect=UbpetApiError(200, {"code": 2002})) as login:
         for _ in range(3):
             with pytest.raises(UbpetAuthenticationError):
                 api.ensure_login()
@@ -593,11 +579,13 @@ async def test_wrong_password_is_not_retried_or_hidden_as_optional_error(coordin
 
 
 async def test_delay_change_does_not_enable_auto_clean(coordinator):
-    from custom_components.ubpet_cat_litter_hub.number import UbpetAutoCleanDelayNumber
+    from homeassistant.components.number import NumberEntityDescription
+
+    from custom_components.ubpet_cat_litter_hub.number import SettingNumber
 
     c = coordinator
     c.data = {"devices": {"SN": {"config": {"sensorSwitch": 0, "lazyTime": 120}}}}
-    entity = UbpetAutoCleanDelayNumber(c, c.entry.entry_id, "SN")
+    entity = SettingNumber(c, "box", "SN", NumberEntityDescription(key="auto_clean_delay"))
     entity.hass = c.hass
     c.client.set_auto_clean_delay = MagicMock()
     await entity.async_set_native_value(5)
@@ -627,8 +615,8 @@ async def test_pause_is_immediate_and_resume_is_blocked_by_scale_presence(coordi
             "SN": {"mqtt_state": {"w_state_app_name": "RUNNING", "w_mode_app_name": "CLEANING", "toilet_state": 1}}
         }
     }
-    pause = UbpetMqttCommandButton(
-        c, c.entry.entry_id, "SN", next(d for d in MQTT_BUTTONS if d.service_id == "pause_clean_up")
+    pause = CommandButton(
+        c, "box", "SN", next(d for d in MQTT_BUTTONS if d.service_id == "pause_clean_up")
     )
     pause.hass = c.hass
     c.client.send_mqtt_service = MagicMock(return_value={})
@@ -636,18 +624,19 @@ async def test_pause_is_immediate_and_resume_is_blocked_by_scale_presence(coordi
         await pause.async_press()
         preflight.assert_not_called()
     c.data["devices"]["SN"]["mqtt_state"]["w_state_app_name"] = "PAUSED"
-    resume = UbpetMqttCommandButton(
-        c, c.entry.entry_id, "SN", next(d for d in MQTT_BUTTONS if d.service_id == "resume_clean_up")
+    resume = CommandButton(
+        c, "box", "SN", next(d for d in MQTT_BUTTONS if d.service_id == "resume_clean_up")
     )
     assert not resume.available
 
 
 def test_box_status_is_a_translatable_key_and_idles_are_not_reported_as_running():
+    from custom_components.ubpet_cat_litter_hub.readings import box_reading
     from custom_components.ubpet_cat_litter_hub.sensor import DEVICE_SENSORS
 
     status = next(d for d in DEVICE_SENSORS if d.key == "box_status")
     assert status.device_class == "enum" and set(status.options) == {"standby", "running", "paused"}
     box = {"device": {}, "mqtt_state": {"w_mode_app_name": "IDLE", "w_state_app_name": "RUNNING"}}
-    assert status.value_fn(box) == "standby"
+    assert box_reading(status.key, box) == "standby"
     box["mqtt_state"] = {"w_mode_app_name": "CLEANING", "w_state_app_name": "RUNNING"}
-    assert status.value_fn(box) == "running"
+    assert box_reading(status.key, box) == "running"

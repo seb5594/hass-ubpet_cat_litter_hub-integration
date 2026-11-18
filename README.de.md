@@ -9,7 +9,7 @@
 
 Eine Home-Assistant-Integration für smarte Katzenklos, die dieselbe Cloud-API nutzen: **UPET, UBPet, AIR PET, AIRROBO, Robotail und Meowant**. Mehrere Konten, Anbieter und Kontoregionen laufen nebeneinander in einer Integration, jedes mit eigener Verbindung.
 
-**Am UBPet C20 getestet:** Der Maintainer hat [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) erfolgreich an einem echten Gerät getestet. Die automatisierten Kompatibilitätstests verwenden simulierten Cloud-Verkehr. Ein Gerätetest für `2026.11.10.1` steht aus. Details stehen in der [Testdokumentation](docs/TESTING.md).
+**Am UBPet C20 getestet:** Der Maintainer hat [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) erfolgreich an einem echten Gerät getestet. Die automatisierten Kompatibilitätstests verwenden simulierten Cloud-Verkehr. Ein Gerätetest des überarbeiteten Clients in `2026.11.18.1` steht aus. Details stehen in der [Testdokumentation](docs/TESTING.md).
 
 ## Was die Integration kann
 
@@ -28,7 +28,7 @@ Eine Home-Assistant-Integration für smarte Katzenklos, die dieselbe Cloud-API n
 
 ## Installation
 
-Ab `2026.11.10.1` wählt die Einrichtung den App-Signaturschlüssel anhand von App und Region automatisch aus. Bestehende Einträge verwenden den gespeicherten Schlüssel weiter.
+Im überarbeiteten Paket `2026.11.18.1` sind keine Hersteller-Signierschlüssel enthalten. Bestehende und migrierte Einträge verwenden ihren lokal gespeicherten Schlüssel weiter. Für ein neues Konto ist ein zulässig verwendbarer App-Signierschlüssel für App und Region erforderlich; eine allgemeine offizielle Ausgabestelle wurde nicht verifiziert. Siehe [Herkunftsprüfung und verbleibende Schritte](docs/LIZENZPRUEFUNG.md).
 
 Home Assistant Core **ab 2023.6.0**, siehe [hacs.json](hacs.json). Den Stand der tatsächlich geprüften Versionen beschreibt [TESTEN.md](docs/TESTING.md).
 
@@ -121,7 +121,7 @@ Empfohlene Topics:
 
 ## Herkunft und Lizenzstatus
 
-Der Quellcode und die Grafiken von Cat Litter Hub stehen ab Release 2026.11.09.1 unter der [MIT-Lizenz](LICENSE), Copyright seb5594 (Sebastian Schmidt). Frühere Upstream-Commits und Release-Archive behalten ihren jeweiligen Rechtsstatus. Die [Quellenhinweise](docs/PROVENANCE.md) dokumentieren die Herkunft und die Voraussetzungen der Anbieter. Der [Lizenzhinweis zu den Anbieterdaten](custom_components/ubpet_cat_litter_hub/LICENSE-SCOPE.txt) grenzt den Lizenzumfang ab.
+Die frühere pauschale MIT-Angabe ab `2026.11.09.1` war für den noch übernommenen Code nicht belegt. Der Kandidat `2026.11.18.1` ersetzt die beanstandeten Implementierungen und dokumentiert den aktuellen Paketbestand. Die [MIT-Lizenz](LICENSE) betrifft die Projektimplementierung und eigenen Grafiken dieses Quellstands; frühere Archive werden dadurch nicht rückwirkend freigegeben. Die [Herkunftsprüfung](docs/LIZENZPRUEFUNG.md) beschreibt Änderungen, Prüfnachweise und Grenzen. Die HACS-Submission ist weiterhin ein Entwurf.
 
 ## Say thanks
 

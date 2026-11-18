@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026.11.18.1 — Herkunftsprüfung und neue Plattformadapter
+
+- Die im HACS-Review beanstandeten Implementierungen durch gemeinsame Messwertadapter, ein reines Einstellungsmodell und getrennten HTTP-Transport ersetzen. Alle 95 Referenzentitäten behalten Kennungen und Statistik-Metadaten.
+- Gleichzeitige Zeitplanänderungen je Box serialisieren. Fehlende Zeitplanfelder nicht mehr mit Standardwerten überschreiben; fehlgeschlagene Schreibvorgänge verändern den lokalen Zustand nicht.
+- Hersteller-Signierschlüssel aus dem Paket entfernen. Bestehende Konten behalten ihre lokal gespeicherten Werte; neue Konten benötigen einen zulässig verwendbaren Schlüssel für App und Region.
+- Frühere pauschale MIT-Aussage berichtigen. Herkunft, unveränderliche Quellstände und den installierbaren Dateibestand dokumentieren; den Bestand im bestehenden Workflow prüfen.
+- Noch keine erneute HACS-Freigabe und kein Gerätetest dieser Version. Siehe `docs/LIZENZPRUEFUNG.md` für die verbleibenden Veröffentlichungsschritte.
+
 ## 2026.11.10.1
 
 - Select app signing keys automatically for new entries. The vendor data and its license scope notice ship as separate files.

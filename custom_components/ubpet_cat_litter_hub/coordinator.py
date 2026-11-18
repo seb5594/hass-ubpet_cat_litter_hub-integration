@@ -69,6 +69,7 @@ class UbpetDataUpdateCoordinator(DataUpdateCoordinator):
         self._cancel_refresh = None
         self._stopping = False
         self._state_waiters = {}
+        self.setting_locks = {}
 
     async def _async_update_data(self):
         if not self._history_loaded:

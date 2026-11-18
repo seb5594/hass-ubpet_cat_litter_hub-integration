@@ -11,6 +11,7 @@ import pytest
 from test_history import load, privacy
 
 api = load("api")
+http = load("cloud_http")
 
 
 def session(token="first"):
@@ -45,7 +46,7 @@ def server(monkeypatch):
         status, data = replies.popleft()
         yield SimpleNamespace(status=status, read=lambda: json.dumps(data).encode())
 
-    monkeypatch.setattr(api.urllib.request, "urlopen", accept)
+    monkeypatch.setattr(http.request, "urlopen", accept)
     return calls, replies
 
 
@@ -153,9 +154,9 @@ def test_device_messaging_login_and_contacts(client, server):
 
 
 def test_signature_bytes(monkeypatch):
-    monkeypatch.setattr(api.time, "time", lambda: 1234567890)
-    monkeypatch.setattr(api.random, "choice", lambda _: "A")
-    actual = api.UbtV2Signer("app-key").sign(device_id="device-id")
+    monkeypatch.setattr(http.time, "time", lambda: 1234567890)
+    monkeypatch.setattr(http.secrets, "choice", lambda _: "A")
+    actual = http.HeaderSigner("app-key").header("device-id")
     expected = hashlib.md5(b"1234567890app-keyAAAAAAAAAAdevice-id").hexdigest()
     assert actual == expected + " 1234567890 AAAAAAAAAA v2"
 

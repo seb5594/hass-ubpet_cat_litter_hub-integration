@@ -1,0 +1,18 @@
+{
+  "schema": 1,
+  "snapshot_count": 51,
+  "python_source_blobs": 152,
+  "criteria": {
+    "consecutive_python_tokens": 35,
+    "minimum_line_span": 4,
+    "matching_text_characters": 50
+  },
+  "python_matches": [],
+  "translation_matches": [],
+  "legal_clearance": "not_asserted",
+  "limitations": [
+    "Matching tests cannot establish authorship or licensing rights.",
+    "Shorter, renamed, reordered or otherwise transformed derivations require manual review.",
+    "Only the listed public snapshots are covered; this is not a clean-room claim."
+  ]
+}

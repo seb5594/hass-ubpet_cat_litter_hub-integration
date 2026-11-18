@@ -12,7 +12,7 @@ from .box_config import effective_work_state
 from .compat import description_is_frozen, translated_error
 from .const import DOMAIN
 from .coordinator import UbpetDataUpdateCoordinator
-from .entities import UbpetDeviceEntity, setup_discovery
+from .entities import HubEntity, setup_discovery
 
 REST_REQUEST_SERVICE = "__rest_request"
 RESET_WASTE_BIN_SERVICE = "__reset_waste_bin"
@@ -71,7 +71,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
 
     def build():
         return [
-            UbpetMqttCommandButton(coordinator, coordinator.namespace, serial, description)
+            CommandButton(coordinator, "box", serial, description)
             for serial in coordinator.data.get("devices", {})
             for description in MQTT_BUTTONS
         ]
@@ -79,19 +79,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     setup_discovery(coordinator, entry, async_add_entities, build)
 
 
-class UbpetMqttCommandButton(UbpetDeviceEntity, ButtonEntity):
+class CommandButton(HubEntity, ButtonEntity):
     entity_description: UbpetMqttButtonDescription
-
-    def __init__(
-        self,
-        coordinator: UbpetDataUpdateCoordinator,
-        entry_id: str,
-        serial: str,
-        description: UbpetMqttButtonDescription,
-    ) -> None:
-        super().__init__(coordinator)
-        self._bind_box(entry_id, serial, description.key)
-        self.entity_description = description
 
     @property
     def available(self) -> bool:
@@ -106,8 +95,8 @@ class UbpetMqttCommandButton(UbpetDeviceEntity, ButtonEntity):
         if command == "request_state":
             return True
 
-        snapshot = (self._device_item or {}).get("mqtt_state")
-        seen = self.coordinator.last_mqtt_update_at(self._serial)
+        snapshot = (self.snapshot or {}).get("mqtt_state")
+        seen = self.coordinator.last_mqtt_update_at(self.target_id)
         if not isinstance(snapshot, dict) or seen is None or transport.connected_since is None:
             return False
         if seen < transport.connected_since:
@@ -139,14 +128,14 @@ class UbpetMqttCommandButton(UbpetDeviceEntity, ButtonEntity):
                     if service == RESET_WASTE_BIN_SERVICE
                     else self.coordinator.client.reset_deodorant
                 )
-                await self.hass.async_add_executor_job(method, self._serial)
+                await self.hass.async_add_executor_job(method, self.target_id)
                 self.coordinator.schedule_refresh(15)
             else:
                 if service in MOVEMENT_SERVICES:
-                    await self.coordinator.async_ensure_fresh_state(self._serial)
+                    await self.coordinator.async_ensure_fresh_state(self.target_id)
                     if not self.available:
                         raise translated_error("state_changed", "Device state changed; movement was not sent")
-                await self.hass.async_add_executor_job(self.coordinator.client.send_mqtt_service, self._serial, service)
+                await self.hass.async_add_executor_job(self.coordinator.client.send_mqtt_service, self.target_id, service)
                 self.coordinator.schedule_refresh()
         except (OSError, RuntimeError) as err:
             raise translated_error("command_failed", "Vendor command failed; see connection diagnostics") from err

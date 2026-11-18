@@ -1,0 +1,505 @@
+[
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "box_status",
+    "name": "Litter box operation",
+    "icon": "mdi:list-status",
+    "device_class": "enum",
+    "options": [
+      "standby",
+      "running",
+      "paused"
+    ]
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "empty_waste_bin_reminder_days",
+    "name": "Bin reminder days in use",
+    "icon": "mdi:calendar-week",
+    "device_class": "enum",
+    "entity_category": "diagnostic",
+    "options": [
+      "off",
+      "every_day",
+      "weekdays",
+      "weekend",
+      "custom"
+    ]
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "box_use_times",
+    "name": "Recorded box visits",
+    "icon": "mdi:counter",
+    "state_class": "measurement"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "waste_bin_level",
+    "name": "Waste drawer fill",
+    "icon": "mdi:delete-outline",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "%"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "waste_bin_last_reset",
+    "name": "Last waste counter reset",
+    "icon": "mdi:history",
+    "device_class": "timestamp",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "box_full_max",
+    "name": "Maximum cleans per bin cycle",
+    "icon": "mdi:delete",
+    "state_class": "measurement",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "box_full_alert",
+    "name": "Waste drawer warning state",
+    "icon": "mdi:alert-outline",
+    "state_class": "measurement",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "deodorant_remaining_days",
+    "name": "Days left on deodorizer",
+    "icon": "mdi:air-filter",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "d"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "auto_clean_delay_current",
+    "name": "Delay before automatic scooping",
+    "icon": "mdi:broom",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "min"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "firmware_version",
+    "name": "Installed firmware",
+    "icon": "mdi:chip",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "wifi_name",
+    "name": "Connected Wi-Fi network",
+    "icon": "mdi:wifi",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "mqtt_work_mode",
+    "name": "Device operating mode (MQTT)",
+    "icon": "mdi:robot-vacuum",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "mqtt_work_state",
+    "name": "Device operating state (MQTT)",
+    "icon": "mdi:state-machine",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "mqtt_work_cause",
+    "name": "Reason for operation (MQTT)",
+    "icon": "mdi:alert-circle-outline",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "last_rest_update",
+    "name": "Most recent HTTP refresh",
+    "icon": "mdi:cloud-check-outline",
+    "device_class": "timestamp",
+    "entity_category": "diagnostic",
+    "entity_registry_enabled_default": false
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "last_mqtt_update",
+    "name": "Most recent MQTT message",
+    "icon": "mdi:message-check-outline",
+    "device_class": "timestamp",
+    "entity_category": "diagnostic",
+    "entity_registry_enabled_default": false
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "remaining_bin_uses",
+    "name": "Uses until bin capacity",
+    "icon": "mdi:delete-clock",
+    "state_class": "measurement"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "last_visit",
+    "name": "Last visit",
+    "icon": "mdi:cat",
+    "device_class": "timestamp"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "mqtt_pet_position",
+    "name": "Pet position",
+    "icon": "mdi:cat",
+    "device_class": "enum",
+    "entity_category": "diagnostic",
+    "options": [
+      "inside",
+      "away"
+    ]
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "visits_today",
+    "name": "Visits today",
+    "icon": "mdi:counter",
+    "state_class": "total_increasing"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "cleans_today",
+    "name": "Cleans today",
+    "icon": "mdi:broom",
+    "state_class": "total_increasing"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "last_clean",
+    "name": "Last clean",
+    "icon": "mdi:broom",
+    "device_class": "timestamp"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "cleans_since_bin_reset",
+    "name": "Cleans since waste bin reset",
+    "icon": "mdi:delete-restore",
+    "state_class": "measurement"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "last_used_by",
+    "name": "Last used by",
+    "icon": "mdi:cat"
+  },
+  {
+    "platform": "sensor",
+    "subject": "box",
+    "key": "scheduled_cleans",
+    "name": "Scheduled cleans",
+    "icon": "mdi:calendar-clock",
+    "state_class": "measurement",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_weight",
+    "name": "Cat weight",
+    "icon": "mdi:scale",
+    "device_class": "weight",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "kg"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_visits",
+    "name": "Visits (legacy)",
+    "icon": "mdi:cat",
+    "state_class": "measurement"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_cost_time",
+    "name": "Mean visit time (legacy)",
+    "icon": "mdi:timer-outline",
+    "device_class": "duration",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "s"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_last_visit_duration",
+    "name": "Last visit duration",
+    "icon": "mdi:timer-outline",
+    "device_class": "duration",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "s"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_pee_visits_24h",
+    "name": "Pee in 24 hours (estimated)",
+    "icon": "mdi:water-outline",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "visits"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_poo_visits_24h",
+    "name": "Poo in 24 hours (estimated)",
+    "icon": "mdi:emoticon-poop",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "visits"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_last_pee",
+    "name": "Last pee (estimated)",
+    "icon": "mdi:clock-outline",
+    "device_class": "timestamp"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_last_poo",
+    "name": "Last poo (estimated)",
+    "icon": "mdi:clock-outline",
+    "device_class": "timestamp"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_last_visit",
+    "name": "Last visit",
+    "icon": "mdi:cat",
+    "device_class": "timestamp"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_visits_24h",
+    "name": "Visits in 24 hours",
+    "icon": "mdi:counter",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "visits"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_duration_24h",
+    "name": "Time in box in 24 hours",
+    "icon": "mdi:timer-outline",
+    "device_class": "duration",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "s"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_average_duration_24h",
+    "name": "Average visit duration in 24 hours",
+    "icon": "mdi:timer-outline",
+    "device_class": "duration",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "s"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_maximum_duration_24h",
+    "name": "Longest visit in 24 hours",
+    "icon": "mdi:timer-outline",
+    "device_class": "duration",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "s"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_weight_change",
+    "name": "Weight change since previous visit",
+    "icon": "mdi:scale",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "kg"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_visits_today",
+    "name": "Visits today",
+    "icon": "mdi:counter",
+    "state_class": "total_increasing"
+  },
+  {
+    "platform": "sensor",
+    "subject": "cat",
+    "key": "cat_last_visit_weight",
+    "name": "Weight at last visit",
+    "icon": "mdi:scale",
+    "device_class": "weight",
+    "state_class": "measurement",
+    "native_unit_of_measurement": "kg"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "online",
+    "name": "Connected",
+    "icon": "mdi:wifi",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "deodorant_expired",
+    "name": "Deodorizer life ended",
+    "icon": "mdi:air-filter",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "sensor_switch",
+    "name": "Presence sensing active",
+    "icon": "mdi:motion-sensor",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "camera_switch",
+    "name": "Camera active",
+    "icon": "mdi:camera",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "control_board_switch",
+    "name": "Panel lock",
+    "icon": "mdi:lock",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "cat_inside",
+    "name": "Cat inside",
+    "device_class": "occupancy"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "cat_nearby",
+    "name": "Cat nearby",
+    "device_class": "occupancy"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "cover_open",
+    "name": "Cover open",
+    "device_class": "problem"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "drum_not_in_place",
+    "name": "Drum out of position",
+    "device_class": "problem"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "drum_stuck",
+    "name": "Drum stuck",
+    "device_class": "problem"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "scale_fault",
+    "name": "Scale fault",
+    "device_class": "problem",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "camera_fault",
+    "name": "Camera fault",
+    "device_class": "problem",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "light",
+    "name": "Light",
+    "device_class": "light"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "firmware_updating",
+    "name": "Firmware updating",
+    "device_class": "update",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "mqtt_connected",
+    "name": "MQTT connected",
+    "device_class": "connectivity",
+    "entity_category": "diagnostic"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "waste_bin_full",
+    "name": "Waste bin threshold reached",
+    "device_class": "problem"
+  },
+  {
+    "platform": "binary_sensor",
+    "subject": "box",
+    "key": "history_truncated",
+    "name": "History fetch limit reached",
+    "device_class": "problem",
+    "entity_category": "diagnostic"
+  }
+]
