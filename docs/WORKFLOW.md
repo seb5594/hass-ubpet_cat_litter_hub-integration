@@ -13,7 +13,7 @@ The shared engine measures tests and ZIP size and refreshes the generated README
 
 ## Scheme
 
-`2026.11.02.1` means: first build on 2 November 2026. The next ones are `.2`, `.3` and so on. The daily counter restarts at `.1` the next calendar day. The reference time zone is **Europe/Berlin**. New release tags and titles use `YYYY.MM.DD.BUILD` without a prefix. Older tags remain valid.
+`2026.11.02` means: first build on 2 November 2026, without a suffix. The next ones are `.1`, `.2` and so on. The next calendar day starts again without a suffix. The reference time zone is **Europe/Berlin**. New release tags and titles use `YYYY.MM.DD[.BUILD]` without a prefix. Older tags remain valid.
 
 The version source is `custom_components/ubpet_cat_litter_hub/manifest.json`. The scheme is recognised as valid calendar versioning and is supported by the existing ZIP/release engine.
 
@@ -22,7 +22,7 @@ The version source is `custom_components/ubpet_cat_litter_hub/manifest.json`. Th
 python tools/version.py
 
 # Prepare a specific build:
-python tools/version.py --date 2026-11-02 --build 2
+python tools/version.py --date 2026-11-02 --build 2   # 2026.11.02.2; --build 0 is 2026.11.02
 ```
 
 Run `git fetch --tags origin` before preparing a daily build so that already published tags are taken into account. The script only changes the manifest; add the changelog entry and device test notes that match the actual scope of the change, then commit.

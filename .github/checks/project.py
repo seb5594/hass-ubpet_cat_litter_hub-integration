@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 component = ROOT / "custom_components/ubpet_cat_litter_hub"
 manifest = json.loads((component / "manifest.json").read_text(encoding="utf-8"))
-assert re.fullmatch(r"\d{4}\.\d{2}\.\d{2}\.[1-9]\d*", manifest["version"]), "Version: JJJJ.MM.TT.Build"
+assert re.fullmatch(r"\d{4}\.\d{2}\.\d{2}(?:\.[1-9]\d*)?", manifest["version"]), "Version: JJJJ.MM.TT[.Build]"
 assert manifest["domain"] == component.name == "ubpet_cat_litter_hub"
 assert manifest["requirements"] == ["paho-mqtt>=2.1.0"]
 apps = json.loads((component / "mobile_apps.json").read_text(encoding="utf-8"))
