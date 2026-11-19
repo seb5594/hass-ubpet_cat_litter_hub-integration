@@ -9,7 +9,7 @@
 
 Eine Home-Assistant-Integration für smarte Katzenklos, die dieselbe Cloud-API nutzen: **UPET, UBPet, AIR PET, AIRROBO, Robotail und Meowant**. Mehrere Konten, Anbieter und Kontoregionen laufen nebeneinander in einer Integration, jedes mit eigener Verbindung.
 
-**Am UBPet C20 getestet:** Der Maintainer hat [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) erfolgreich an einem echten Gerät getestet. Die automatisierten Kompatibilitätstests verwenden simulierten Cloud-Verkehr. Ein Gerätetest des überarbeiteten Clients in `2026.11.19.1` steht aus. Details stehen in der [Testdokumentation](docs/TESTING.md).
+**Am UBPet C20 getestet:** Der Maintainer hat [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) erfolgreich an einem echten Gerät getestet. Die automatisierten Kompatibilitätstests verwenden simulierten Cloud-Verkehr. Ein Gerätetest des überarbeiteten Clients in `2026.11.19.1` steht aus. Details stehen in der [Testdokumentation](docs/TESTEN.md).
 
 ## Was die Integration kann
 
@@ -30,7 +30,7 @@ Eine Home-Assistant-Integration für smarte Katzenklos, die dieselbe Cloud-API n
 
 Die bekannten App-Schlüssel sind vordefiniert und werden passend zu Anbieter und Region automatisch ausgewählt. Für die Einrichtung reichen die Kontodaten. Bestehende Einträge behalten ihre gespeicherten Werte; eine Überschreibung ist in den erweiterten Optionen möglich. [App-Daten und Lizenzumfang](docs/APP_SCHLUESSEL.md).
 
-Home Assistant Core **ab 2023.6.0**, siehe [hacs.json](hacs.json). Den Stand der tatsächlich geprüften Versionen beschreibt [TESTEN.md](docs/TESTING.md).
+Home Assistant Core **ab 2023.6.0**, siehe [hacs.json](hacs.json). Den Stand der tatsächlich geprüften Versionen beschreibt [TESTEN.md](docs/TESTEN.md).
 
 1. Suche in HACS (Home Assistant 2026.10 und älter) oder unter **Einstellungen → Marketplace** (2026.11 und neuer) nach **Cat Litter Hub**, oder nutze das Badge *HACS · Marketplace* oben. Findet die Suche es nicht, füge `https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration` am selben Ort zuerst als benutzerdefiniertes Repository hinzu (Kategorie **Integration**).
 2. **Cat Litter Hub** herunterladen und Home Assistant neu starten.
