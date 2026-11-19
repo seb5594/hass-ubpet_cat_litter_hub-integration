@@ -2,148 +2,113 @@
 
 from __future__ import annotations
 
+import asyncio
 from functools import partial
-from typing import Any
 
 from homeassistant.core import callback
 from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.entity import EntityCategory
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .box_config import empty_waste_bin_reminder_config, first_period_config, period_config_id
-from .compat import DeviceInfo, serial_info
+from .compat import DeviceInfo, serial_info, translated_error
 from .const import DOMAIN, MODEL_BOX, MODEL_CAT, entry_namespace
+from .settings import SETTINGS, plan_setting
 from .writes import async_write
 
 
-class DeviceAvailability:
+class HubEntity(CoordinatorEntity):
+    """Bind one platform description to a box or pet in one cloud account."""
+
     _attr_has_entity_name = True
+
+    def __init__(self, account, subject, target_id, description, *, registry_key=None):
+        super().__init__(account)
+        self.subject = subject
+        self.target_id = str(target_id)
+        self.entity_description = description
+        parts = [account.namespace]
+        if subject == "cat":
+            parts.append("cat")
+        parts.extend((self.target_id, registry_key or description.key))
+        self._attr_unique_id = "_".join(parts)
+
+    @property
+    def snapshot(self):
+        data = self.coordinator.data or {}
+        if self.subject == "box":
+            return data.get("devices", {}).get(self.target_id)
+        for profile in data.get("cats", []):
+            if str(profile.get("catInfoId")) == self.target_id:
+                return profile
+        return None
 
     @property
     def available(self):
-        return super().available and self._serial in (self.coordinator.data or {}).get("devices", {})
-
-
-class CatAvailability:
-    _attr_has_entity_name = True
+        return self.snapshot is not None and super().available
 
     @property
-    def available(self):
-        return super().available and self._cat_data is not None
-
-
-class UbpetDeviceEntity(DeviceAvailability, CoordinatorEntity):
-    """A Home Assistant entity associated with a litter box."""
-
-    def _bind_box(self, namespace: str, serial: str, key: str) -> None:
-        self._serial = serial
-        self._attr_unique_id = "_".join((namespace, serial, key))
-
-    @property
-    def _device_item(self) -> dict[str, Any] | None:
-        return (self.coordinator.data or {}).get("devices", {}).get(self._serial)
-
-    @property
-    def _box_config(self) -> dict[str, Any]:
-        return (self._device_item or {}).get("config", {})
-
-    @property
-    def device_info(self) -> DeviceInfo:
-        device = (self._device_item or {}).get("device", {})
-        return DeviceInfo(
-            identifiers={(DOMAIN, self._serial)},
-            manufacturer=self.coordinator.provider_label,
-            model=MODEL_BOX,
-            name=device.get("deviceName") or self._serial,
-            **serial_info(self._serial),
+    def device_info(self):
+        values = self.snapshot or {}
+        pet = self.subject == "cat"
+        identity = self.coordinator.cat_identifier(self.target_id) if pet else self.target_id
+        name = values.get("nickname") if pet else values.get("device", {}).get("deviceName")
+        info = DeviceInfo(
+            name=name or self.target_id, model=MODEL_CAT if pet else MODEL_BOX,
+            manufacturer=self.coordinator.provider_label, identifiers={(DOMAIN, identity)},
         )
+        if not pet:
+            info.update(serial_info(self.target_id))
+        return info
 
 
-class UbpetCatEntity(CatAvailability, CoordinatorEntity):
-    """Base of every entity that belongs to one cat. Subclasses set ``_cat_id``."""
-
-    def _bind_cat(self, namespace: str, cat_id: str, key: str) -> None:
-        self._cat_id = cat_id
-        self._attr_unique_id = "_".join((namespace, "cat", cat_id, key))
-
-    @property
-    def _cat_data(self) -> dict[str, Any] | None:
-        cats = (self.coordinator.data or {}).get("cats", [])
-        matches = (cat for cat in cats if str(cat.get("catInfoId")) == self._cat_id)
-        return next(matches, None)
+class HubSettingEntity(HubEntity):
+    """Execute a pure setting plan, serialised with other edits on the same box."""
 
     @property
-    def device_info(self) -> DeviceInfo:
-        return DeviceInfo(
-            identifiers={(DOMAIN, self.coordinator.cat_identifier(self._cat_id))},
-            manufacturer=self.coordinator.provider_label,
-            model=MODEL_CAT,
-            name=(self._cat_data or {}).get("nickname") or f"Cat {self._cat_id}",
-        )
-
-
-class UbpetReminderEntity(UbpetDeviceEntity):
-    """Switch, time and weekday entities of the empty-bin reminder share this write path."""
+    def setting(self):
+        return SETTINGS[self.entity_description.key]
 
     @property
-    def _reminder_config(self) -> dict[str, Any] | None:
-        return empty_waste_bin_reminder_config(self._box_config)
+    def setting_value(self):
+        return self.setting.read(self.snapshot)
 
-    async def _write_reminder(self, **changes: Any) -> None:
-        reminder = self._reminder_config
-        if not reminder:
-            return
-        fields = {
-            "open_switch": reminder.get("openSwitch", 1),
-            "time_hour": reminder.get("timeHour", 0),
-            "time_minute": reminder.get("timeMinute", 0),
-            "option_int": reminder.get("period", 0),
-            **changes,
-        }
-        await async_write(
-            self.hass,
-            partial(
-                self.coordinator.client.set_time_point,
-                self._serial,
-                config_id=reminder["notifyConfigId"],
-                function_type=1,
-                **fields,
-            ),
-        )
-        self.coordinator.schedule_refresh(15)
+    async def async_change(self, value):
+        lock = self.coordinator.setting_locks.setdefault(self.target_id, asyncio.Lock())
+        async with lock:
+            try:
+                command = plan_setting(self.entity_description.key, value, self.snapshot)
+            except (KeyError, ValueError, TypeError) as error:
+                raise translated_error("state_changed", "Settings are incomplete or changed; refresh the device") from error
+            await async_write(self.hass, partial(
+                getattr(self.coordinator.client, command.method), self.target_id, *command.args, **command.kwargs,
+            ))
+            command.commit(self.snapshot)
+            self.coordinator.async_update_listeners()
+            self.coordinator.schedule_refresh(15)
 
 
-class UbpetPeriodEntity(UbpetDeviceEntity):
-    """Do-not-disturb and light schedule: a start/end period with an on/off flag."""
-
-    @property
-    def _period_config(self) -> dict[str, Any] | None:
-        return first_period_config(self._box_config, self.entity_description.config_list_key)
-
-    async def _write_period(self, **changes: Any) -> None:
-        period = self._period_config
-        config_id = period_config_id(period) if period else None
-        if config_id is None:
-            return
-        fields = {
-            "open_switch": period.get("openSwitch", 1),
-            "start_hour": period.get("startTimeHour", 0),
-            "start_minute": period.get("startTimeMinute", 0),
-            "end_hour": period.get("endTimeHour", 0),
-            "end_minute": period.get("endTimeMinute", 0),
-            **changes,
-        }
-        await async_write(
-            self.hass,
-            partial(
-                self.coordinator.client.set_time_period,
-                self._serial,
-                config_id=config_id,
-                function_type=self.entity_description.function_type,
-                **fields,
-            ),
-        )
-        self.coordinator.schedule_refresh(15)
+def setting_entities(account, platform, description_type, entity_type):
+    """One discovery path for every writable box platform."""
+    for setting in SETTINGS.values():
+        if setting.platform != platform:
+            continue
+        metadata = dict(key=setting.key, translation_key=setting.key, name=setting.label,
+                        icon=setting.icon, entity_category=EntityCategory.CONFIG)
+        if setting.day_bit:
+            metadata["entity_registry_enabled_default"] = False
+        if platform == "number":
+            delay = setting.family == "auto"
+            metadata.update(native_min_value=1, native_max_value=60 if delay else 100, native_step=1)
+            if delay:
+                metadata["native_unit_of_measurement"] = "min"
+        description = description_type(**metadata)
+        for serial, box in (account.data or {}).get("devices", {}).items():
+            known = er.async_get(account.hass).async_get_entity_id(platform, DOMAIN, f"{account.namespace}_{serial}_{setting.key}")
+            required = setting.key in {"auto_clean", "deodorant_alert", "auto_clean_delay"}
+            present = setting.source(box) is not None and supported(setting.key, box)
+            if required or known or present and (platform == "select" or setting.read(box) is not None):
+                yield entity_type(account, "box", serial, description)
 
 
 def setup_discovery(coordinator, entry, adder, build):

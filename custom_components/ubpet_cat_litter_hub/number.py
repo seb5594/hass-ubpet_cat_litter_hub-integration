@@ -1,126 +1,58 @@
-from __future__ import annotations
+"""Numeric cloud settings and a local duration-classification threshold."""
 
 from homeassistant.components.number import NumberEntity, NumberEntityDescription, NumberMode
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import UnitOfTime
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .box_config import seconds_to_minutes
-from .compat import translated_error
 from .const import DOMAIN
-from .coordinator import UbpetDataUpdateCoordinator
-from .entities import UbpetCatEntity, UbpetDeviceEntity, setup_discovery
-from .writes import async_write
+from .entities import HubEntity, HubSettingEntity, setting_entities, setup_discovery
+from .readings import at_path
 
-AUTO_CLEAN_DELAY = NumberEntityDescription(
-    key="auto_clean_delay",
-    name="Auto clean delay",
-    icon="mdi:broom",
-    translation_key="auto_clean_delay",
-    native_min_value=1,
-    native_max_value=60,
-    native_step=1,
-    native_unit_of_measurement=UnitOfTime.MINUTES,
-    entity_category=EntityCategory.CONFIG,
+_ESTIMATE_THRESHOLD = NumberEntityDescription(
+    key="cat_poo_duration_threshold", translation_key="cat_poo_duration_threshold",
+    name="Poo duration threshold (estimate)", icon="mdi:timer-cog-outline",
+    native_min_value=10, native_max_value=150, native_step=1,
+    native_unit_of_measurement="s", entity_category=EntityCategory.CONFIG,
 )
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
-    coordinator: UbpetDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
+async def async_setup_entry(hass, entry, async_add_entities):
+    account = hass.data[DOMAIN][entry.entry_id]
 
-    def build():
-        entities: list[NumberEntity] = []
-        for serial in coordinator.data.get("devices", {}):
-            entities.append(UbpetAutoCleanDelayNumber(coordinator, coordinator.namespace, serial))
-        for cat in coordinator.data.get("cats", []):
-            if cat.get("catInfoId") is not None:
-                entities.append(UbpetCatThresholdNumber(coordinator, coordinator.namespace, str(cat["catInfoId"])))
-        for serial, item in coordinator.data.get("devices", {}).items():
-            if item.get("box_use_times", {}).get("boxFullMax"):
-                entities.append(UbpetWasteThresholdNumber(coordinator, coordinator.namespace, serial))
-        return entities
+    def discover_numbers():
+        yield from setting_entities(account, "number", NumberEntityDescription, SettingNumber)
+        for profile in (account.data or {}).get("cats", []):
+            if profile.get("catInfoId") is not None:
+                yield EstimateThreshold(account, "cat", str(profile["catInfoId"]), _ESTIMATE_THRESHOLD,
+                                        registry_key="poo_duration_threshold")
 
-    setup_discovery(coordinator, entry, async_add_entities, build)
+    setup_discovery(account, entry, async_add_entities, discover_numbers)
 
 
-class UbpetAutoCleanDelayNumber(UbpetDeviceEntity, NumberEntity):
-    _attr_mode = NumberMode.SLIDER
-    entity_description = AUTO_CLEAN_DELAY
-
-    def __init__(self, coordinator: UbpetDataUpdateCoordinator, entry_id: str, serial: str) -> None:
-        super().__init__(coordinator)
-        self._bind_box(entry_id, serial, self.entity_description.key)
-
+class SettingNumber(HubSettingEntity, NumberEntity):
     @property
-    def native_value(self) -> int | float | None:
-        return seconds_to_minutes(self._box_config.get("lazyTime"))
-
-    async def async_set_native_value(self, value: float) -> None:
-        minutes = int(round(value))
-        enabled = self._box_config.get("sensorSwitch")
-        if enabled not in (0, 1):
-            raise translated_error("auto_clean_unknown", "Auto clean state is unknown; wait for a successful update")
-        await async_write(
-            self.hass,
-            self.coordinator.client.set_auto_clean_delay,
-            self._serial,
-            minutes,
-            enabled == 1,
-        )
-        self.coordinator.schedule_refresh(15)
-
-
-class UbpetCatThresholdNumber(UbpetCatEntity, NumberEntity):
-    _attr_mode = NumberMode.BOX
-    entity_description = NumberEntityDescription(
-        key="cat_poo_duration_threshold",
-        name="Poo duration threshold (estimate)",
-        translation_key="cat_poo_duration_threshold",
-        icon="mdi:timer-cog-outline",
-        entity_category=EntityCategory.CONFIG,
-        native_min_value=10,
-        native_max_value=150,
-        native_step=1,
-        native_unit_of_measurement="s",
-    )
-
-    def __init__(self, coordinator, entry_id, cat_id):
-        super().__init__(coordinator)
-        self._bind_cat(entry_id, cat_id, "poo_duration_threshold")
-
-    @property
-    def native_value(self):
-        return self.coordinator.cat_poo_duration_threshold(self._cat_id)
-
-    async def async_set_native_value(self, value):
-        await self.coordinator.async_set_cat_poo_duration_threshold(self._cat_id, value)
-
-
-class UbpetWasteThresholdNumber(UbpetAutoCleanDelayNumber):
-    _attr_mode = NumberMode.BOX
-    entity_description = NumberEntityDescription(
-        key="box_full_alert_threshold",
-        name="Waste bin full after",
-        translation_key="box_full_alert_threshold",
-        icon="mdi:delete-alert",
-        entity_category=EntityCategory.CONFIG,
-        native_min_value=1,
-        native_max_value=100,
-        native_step=1,
-    )
+    def mode(self):
+        return NumberMode.SLIDER if self.setting.family == "auto" else NumberMode.BOX
 
     @property
     def native_max_value(self):
-        return self.coordinator.data["devices"][self._serial]["box_use_times"].get("boxFullMax", 100)
+        if self.setting.family == "capacity":
+            return at_path(self.snapshot, "box_use_times", "boxFullMax") or 100
+        return self.entity_description.native_max_value
 
     @property
     def native_value(self):
-        return self.coordinator.data["devices"][self._serial]["box_use_times"].get("boxFullAlert")
+        return self.setting_value
 
     async def async_set_native_value(self, value):
-        if not 1 <= value <= self.native_max_value or value != int(value):
-            raise translated_error("threshold_exceeds_capacity", "Threshold exceeds reported capacity")
-        await async_write(self.hass, self.coordinator.client.set_box_full_alert, self._serial, int(value))
-        self.coordinator.schedule_refresh(15)
+        await self.async_change(value)
+
+
+class EstimateThreshold(HubEntity, NumberEntity):
+    _attr_mode = NumberMode.BOX
+
+    @property
+    def native_value(self):
+        return self.coordinator.cat_poo_duration_threshold(self.target_id)
+
+    async def async_set_native_value(self, value):
+        await self.coordinator.async_set_cat_poo_duration_threshold(self.target_id, value)

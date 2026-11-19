@@ -12,6 +12,7 @@ from homeassistant.core import callback
 from homeassistant.helpers import selector
 
 from .api import UbpetApiError, UbpetClient
+from .app_credentials import reusable_app_key
 from .const import (
     CLIENT_KEYS,
     CONF_AREA_CODE,
@@ -22,6 +23,7 @@ from .const import (
     DEFAULT_RECORDS_PER_FETCH,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
+    LEGACY_DOMAIN,
     OPT_MQTT_ENABLED,
     OPT_RECORDS_PER_FETCH,
     OPT_SCAN_INTERVAL,
@@ -32,11 +34,11 @@ from .providers import (
     BASIS_TIMEZONE,
     PROVIDERS,
     account_unique_id,
-    bundled_signing_key,
     credentials,
     endpoint,
     infer_provider,
     infer_region,
+    predefined_app_key,
     suggest_region_with_basis,
 )
 
@@ -135,9 +137,13 @@ class UbpetConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
             ),
         }
-        bundled_regions = {region for region in profile.regions if bundled_signing_key(self._provider, region)}
-        if len(bundled_regions) != len(profile.regions) or (old and not old.get("app_key")):
-            key_field = vol.Optional if old.get("app_key") or bundled_regions else vol.Required
+        display_region = values.get(CONF_REGION, region)
+        if display_region not in profile.regions:
+            display_region = region
+        app, same_app = self._app_profile(old, display_region)
+        has_key = bool(same_app and old.get("app_key")) or bool(self._automatic_app_key(display_region, app))
+        if not has_key or self.context.get("show_advanced_options", False):
+            key_field = vol.Optional if has_key else vol.Required
             fields[key_field("app_key")] = selector.TextSelector(
                 selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
             )
@@ -160,20 +166,12 @@ class UbpetConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if not account or not password:
             raise ValueError("Account and password are required")
         selected_region = user_input[CONF_REGION]
-        default_app = credentials(self._provider, selected_region)
-        app = default_app
-        # Keep custom app credentials of migrated entries in their original tenant.
-        saved_region = old.get(CONF_REGION) or infer_region(old)
-        same_app = old and self._provider == old.get(CONF_PROVIDER, infer_provider(old)) and (
-            selected_region == saved_region
-        )
-        if same_app:
-            app = {key: old.get(key, value) for key, value in app.items()}
+        app, same_app = self._app_profile(old, selected_region)
         signing_key = str(user_input.get("app_key") or "").strip()
         if not signing_key and same_app:
             signing_key = old.get("app_key")
-        if not signing_key and app == default_app:
-            signing_key = bundled_signing_key(self._provider, selected_region)
+        if not signing_key:
+            signing_key = self._automatic_app_key(selected_region, app)
         if not signing_key:
             return None, {"app_key": "app_key_required"}
         data = {
@@ -208,6 +206,28 @@ class UbpetConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         await self.hass.config_entries.async_reload(self._existing.entry_id)
         reason = "reauth_successful" if self.context.get("source") == "reauth" else "reconfigure_successful"
         return self.async_abort(reason=reason), {}
+
+    def _app_profile(self, old, region):
+        app = credentials(self._provider, region)
+        saved_region = old.get(CONF_REGION) or infer_region(old)
+        same_app = bool(old) and self._provider == old.get(CONF_PROVIDER, infer_provider(old)) and region == saved_region
+        if same_app:
+            app = {key: old.get(key, value) for key, value in app.items()}
+        return app, same_app
+
+    def _saved_app_key(self, region, app):
+        # Read configuration data only; the removed integration's Python is never loaded.
+        saved = [entry.data for domain in (DOMAIN, LEGACY_DOMAIN)
+                 for entry in self.hass.config_entries.async_entries(domain)]
+        return reusable_app_key({"base_url": endpoint(self._provider, region), **app}, saved)
+
+    def _automatic_app_key(self, region, app):
+        saved = self._saved_app_key(region, app)
+        if saved is not None:
+            return saved
+        if app == credentials(self._provider, region):
+            return predefined_app_key(self._provider, region)
+        return None
 
     def _reconfigure_conflict(self, devices, account, old) -> str | None:
         coordinator = self.hass.data.get(DOMAIN, {}).get(self._existing.entry_id)

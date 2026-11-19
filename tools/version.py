@@ -31,5 +31,5 @@ version = prefix if build == 0 else f"{prefix}.{build}"
 if version in tags or f"v{version}" in tags:
     parser.error("A Git tag for this version already exists")
 manifest["version"] = version
-path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 print(version)

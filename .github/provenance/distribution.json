@@ -1,0 +1,270 @@
+{
+  "schema": 2,
+  "review": "docs/LIZENZPRUEFUNG.md",
+  "project_license": "MIT",
+  "legal_clearance": "not_asserted",
+  "license_exclusions": [
+    "vendor_app_keys.json"
+  ],
+  "scope": "Project source and artwork only; no grant for vendor app data or earlier upstream code.",
+  "files": {
+    "__init__.py": {
+      "sha256": "49febdfe35371d8a717fbda059bc29b9ffac6450628f09ee11e7ec4700b81acc",
+      "category": "project-source"
+    },
+    "api.py": {
+      "sha256": "1531e72939ad68f0583dc84258970a00291fb648c2892cb7f378814dcdce932d",
+      "category": "project-source"
+    },
+    "app_credentials.py": {
+      "sha256": "dbb7cf7454a07c4f180d3bfe28399a563c18d651a34857a377c4b2f69e8af162",
+      "category": "project-source"
+    },
+    "binary_sensor.py": {
+      "sha256": "c0325bf81fba89604071346a0e2786f50e498a5787daa206965e5bcd73a77a2c",
+      "category": "project-source"
+    },
+    "box_config.py": {
+      "sha256": "ae58010793cfb91e8fe00f52b68949c366371f5b8a7d33238d1dc07e7a301d4c",
+      "category": "project-source"
+    },
+    "brand/icon.png": {
+      "sha256": "7b3952e6b645bcf0f488c0343a151f26d0da3ad1ab39af681c9c977db85f52e6",
+      "category": "project-artwork"
+    },
+    "brand/icon@2x.png": {
+      "sha256": "30a17d590d3ca1e8e24c8c59177c85c9739ec1e348af6c08e494881c8ea268ce",
+      "category": "project-artwork"
+    },
+    "brand/logo.png": {
+      "sha256": "7b3952e6b645bcf0f488c0343a151f26d0da3ad1ab39af681c9c977db85f52e6",
+      "category": "project-artwork"
+    },
+    "brand/logo@2x.png": {
+      "sha256": "30a17d590d3ca1e8e24c8c59177c85c9739ec1e348af6c08e494881c8ea268ce",
+      "category": "project-artwork"
+    },
+    "button.py": {
+      "sha256": "194b58810795110fab8e5583fb03c37ee6bf337017b69ec1445f951bfadfa6b5",
+      "category": "project-source"
+    },
+    "catalog.py": {
+      "sha256": "d05b81a672825432316ada5bd92d5a864ce6acca1fa1feba46946e50ca8a5f31",
+      "category": "project-source"
+    },
+    "cloud_http.py": {
+      "sha256": "d4ff6571cd9a6e27086a668832ff33b62f7f0ae185eb836089c2de19f7f0eb92",
+      "category": "project-source"
+    },
+    "compat.py": {
+      "sha256": "edc59176039501aa65d833b0a7f6d66091ec4c37c4139f1edbe90fa52a88be09",
+      "category": "project-source"
+    },
+    "config_flow.py": {
+      "sha256": "da665f2c3a514e4e1db43bff11b117c7f9934b4ef8da946f9aa429a9b9f0defc",
+      "category": "project-source"
+    },
+    "const.py": {
+      "sha256": "6fc75bedb2cd7efedcd6d226b8208484869c4a922982e82b7963b6a35e7c90b4",
+      "category": "project-source"
+    },
+    "coordinator.py": {
+      "sha256": "db72f01a31ff8605bf375d2437ff537b0f0358139f92d5ccaf3009388398056f",
+      "category": "project-source"
+    },
+    "diagnostics.py": {
+      "sha256": "bc15d78637866685d10bfdb134ee1074c6dbeee3a1c9eaa4ff6de95aecfe556c",
+      "category": "project-source"
+    },
+    "entities.py": {
+      "sha256": "cb5f62ad34451f79655d96927e6f9e448bf79d314c968e408eb3832bb60fdca4",
+      "category": "project-source"
+    },
+    "frontend/ubpet-cards.js": {
+      "sha256": "19da5488b0f5f87f7439ea8ef4ab9077428a1b8015acaac7e1b7a46ef2f95de9",
+      "category": "project-source"
+    },
+    "frontend.py": {
+      "sha256": "36654c6f40ab1eac7257c45df5eaf56348726631516f0006b11c10761e1d1af2",
+      "category": "project-source"
+    },
+    "history.py": {
+      "sha256": "5acd23ebaf17768f9430adb5b26d93ee624038b51981225b9e1fac246d65d419",
+      "category": "project-source"
+    },
+    "http_profile.json": {
+      "sha256": "896ae8ec765bade214e33da51b946ecbe6b7118020ee2d1ae08aef1a5bec739d",
+      "category": "compatibility-data"
+    },
+    "legacy.py": {
+      "sha256": "2aad18919bbb499ed2c13041b9205ffdbb9b361db5ce819603473bf887f454fc",
+      "category": "project-source"
+    },
+    "LICENSE": {
+      "sha256": "cf1eb457f48193244616f83c45f72c255fdd6991eeb3bc2917f93dd21a2f0401",
+      "category": "license-notice"
+    },
+    "LICENSE-SCOPE.txt": {
+      "sha256": "190264cc6b7b04fa1582435b2abfbc24679179a50289984ded2784341d2f7c4c",
+      "category": "license-notice"
+    },
+    "manifest.json": {
+      "sha256": "c64bcb5c6d0580d4ef8081a1866d673cc61b7aea6053a979e74142f3eed07670",
+      "category": "project-source"
+    },
+    "metrics.json": {
+      "sha256": "eefedac980b046245af253b1c3e59dd4b2f5a7c90cdfa013abcf21e29ad98bc3",
+      "category": "compatibility-data"
+    },
+    "mobile_apps.json": {
+      "sha256": "84cc3c6f8d82f90bbc901d567acb7cd4da897f27c74694cecec10dc32897fe03",
+      "category": "compatibility-data"
+    },
+    "mqtt.py": {
+      "sha256": "8f58c1faba2e010f2bda34b60fda65040861098cd8b822621c1ceb415f9eb74c",
+      "category": "project-source"
+    },
+    "number.py": {
+      "sha256": "997b2455d4297b2c7dfba8f3b9ada5fe7c9768475481dae3125bfff6ff2bfb6c",
+      "category": "project-source"
+    },
+    "privacy.py": {
+      "sha256": "dc552299042e42adc025330891c92f8598d48e2fb39203e0685f165d0c8195c0",
+      "category": "project-source"
+    },
+    "providers.json": {
+      "sha256": "502beef10879e845e326c4a0b6b1081c39dfb4eabc828cd20b5340cd6cda6baa",
+      "category": "compatibility-data"
+    },
+    "providers.py": {
+      "sha256": "90c539cc6c538e03191a154135bbca3bc486a394c0ea12f4c524475a5b1716da",
+      "category": "project-source"
+    },
+    "readings.py": {
+      "sha256": "e9105227cc051556da0f454dbb3018527ccb2a98b6f635eb1f3349c2294a067d",
+      "category": "project-source"
+    },
+    "select.py": {
+      "sha256": "f8879cf5e02ed81ed0dda88c7c1f6e62ce8afccc0a19724cff867742cfa1c313",
+      "category": "project-source"
+    },
+    "sensor.py": {
+      "sha256": "f06bbe142f46d7b5b1bd26f18efba276f7603b2300dac9b8c7e01ea13ac6d15b",
+      "category": "project-source"
+    },
+    "settings.py": {
+      "sha256": "72a7d7524a5828e4a07e10bfd78e0a2d0ebb14b6f6a828310486908d9146af6c",
+      "category": "project-source"
+    },
+    "strings.json": {
+      "sha256": "2c38f9b24977a25014508bbd2e9602bee9554631969cde218d0fe3e5b5aaa505",
+      "category": "project-source"
+    },
+    "switch.py": {
+      "sha256": "855fb9add2c68791bc10fb24a4c3e68754b9ba6b91984decaee753357d4ba54e",
+      "category": "project-source"
+    },
+    "time.py": {
+      "sha256": "f8d64d9ad835b55507ed9cfbd6c4c33caf3ea4e774b3b02d13bc1dc59afb2ec0",
+      "category": "project-source"
+    },
+    "translations/cs.json": {
+      "sha256": "dce0709b6ab40d0e147e7d1502cf1d22e04fc2f0105f25eac770ab6fd4102a00",
+      "category": "project-source"
+    },
+    "translations/da.json": {
+      "sha256": "27e449486039db39b46c27f8fda6f4a8a20fe999aee2e6f2a1c90fd0dc676076",
+      "category": "project-source"
+    },
+    "translations/de.json": {
+      "sha256": "7beac1b9eae018f08f4605ce243c6466553e42353ff30dc077de5dfe8cc6b3fd",
+      "category": "project-source"
+    },
+    "translations/en.json": {
+      "sha256": "2c38f9b24977a25014508bbd2e9602bee9554631969cde218d0fe3e5b5aaa505",
+      "category": "project-source"
+    },
+    "translations/es.json": {
+      "sha256": "a9e5c10518e230905dcfe5396ac60f12fb0db94cc9ae12a4768ec831a0757d11",
+      "category": "project-source"
+    },
+    "translations/fi.json": {
+      "sha256": "ab994b4218c4464fced23d971d3230d4330894eb454141689226c77ac65c7845",
+      "category": "project-source"
+    },
+    "translations/fr.json": {
+      "sha256": "853ae85268c9fa6ae6a8d4edacb5b7fad83a0664c177f4abcd4f3ac13ca68ef1",
+      "category": "project-source"
+    },
+    "translations/it.json": {
+      "sha256": "33852168bf7ef3f0e8e7689d6977946881236fef3286e3a7e426c1c1a6dbad83",
+      "category": "project-source"
+    },
+    "translations/ja.json": {
+      "sha256": "a672663aa7a9170636d8271d05091707f936f41c76b9092eb0476faefd23c20b",
+      "category": "project-source"
+    },
+    "translations/ko.json": {
+      "sha256": "f7deeef37ab090a65161bd0b559a4c0d4fe67e5993a3302c3b74434b5ea5c94d",
+      "category": "project-source"
+    },
+    "translations/nb.json": {
+      "sha256": "3e8f9e35f1fc90172ff236bfcccc07e7bd0ab4fab1fede32281acba7780807b8",
+      "category": "project-source"
+    },
+    "translations/nl.json": {
+      "sha256": "f6bdfdd6775057021cbe2392a8a941420a768ae98c9170177d4b367b72f8096a",
+      "category": "project-source"
+    },
+    "translations/pl.json": {
+      "sha256": "6527fd6c59d9f67089d64ae35c9df2c066097d6407bde1cd1fa988ec00c0febd",
+      "category": "project-source"
+    },
+    "translations/pt-BR.json": {
+      "sha256": "fae75a34f711022baf161b9cf93f2e8769a113df8b0b857002e0177e9aaff5a1",
+      "category": "project-source"
+    },
+    "translations/pt.json": {
+      "sha256": "2d39c0474cc4758da82b95666077cc6bb11fb2d8db0952ec7acf352da8a94740",
+      "category": "project-source"
+    },
+    "translations/ru.json": {
+      "sha256": "e345327dbf1d91261a6d81ca310a6a57dd2ee75cb1214dd0b2e520856ecd8367",
+      "category": "project-source"
+    },
+    "translations/sv.json": {
+      "sha256": "1b36b3dc72ec3b1b5e301286a31b4793d999fbd6f60d4deef320e6977e1d08dd",
+      "category": "project-source"
+    },
+    "translations/tr.json": {
+      "sha256": "7cb22e9629959b6a7671609b730c9a4e06e2b70585fb4d5a4666bda85a0d37a5",
+      "category": "project-source"
+    },
+    "translations/uk.json": {
+      "sha256": "72493cdecc6a100e6c850e6cbc023eadc2cd4b0ff2126f77f45a711edacd7076",
+      "category": "project-source"
+    },
+    "translations/zh-Hans.json": {
+      "sha256": "ff16d290f7a221e186b5f88afe95aa29e234a0154c3d538c19fe833dc230f7fe",
+      "category": "project-source"
+    },
+    "translations/zh-Hant.json": {
+      "sha256": "13f2bdaaa1238fb189da2de3123e44a054003fcdb6595b1e757013bd650275e5",
+      "category": "project-source"
+    },
+    "transport.py": {
+      "sha256": "1f74dc4ef11d1186417a0ad216f994b3ff922f71abeafd963a001503b066eee7",
+      "category": "project-source"
+    },
+    "vendor_app_keys.json": {
+      "sha256": "98f4a4c55a0a3efaecbbe8abc900074e3bc4c836c86b8e694590cf1a4fcb9bcd",
+      "category": "third-party-application-data",
+      "project_license_grant": "excluded_from_project_MIT",
+      "origin_record": ".github/provenance/vendor-data.json"
+    },
+    "writes.py": {
+      "sha256": "44faec3dad63b7dddc8a89f4e5c406e707eebb4a473b588ede3ec88bae7db41b",
+      "category": "project-source"
+    }
+  }
+}

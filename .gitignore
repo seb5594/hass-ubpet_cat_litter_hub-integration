@@ -27,3 +27,5 @@ home-assistant.log*
 .research/
 dist/
 .ha-venv/
+.engine/
+.marketplace-submission/

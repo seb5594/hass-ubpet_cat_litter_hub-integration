@@ -23,7 +23,7 @@
 
 A Home Assistant integration for smart cat litter boxes that share the UBPet / AIRROBO cloud API: **UPET, UBPet, AIR PET, AIRROBO, Robotail and Meowant**. Several accounts, providers and account regions run side by side in one integration, each with its own connection.
 
-**Tested on a UBPet C20:** the maintainer successfully tested [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) on real hardware. The automated compatibility checks use simulated cloud traffic. A hardware test of `2026.11.10.1` is pending. See [TESTING.md](docs/TESTING.md).
+**Tested on a UBPet C20:** the maintainer successfully tested [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) on real hardware. The automated compatibility checks use simulated cloud traffic. A hardware test of the replacement client in `2026.11.19.1` is pending. See [TESTING.md](docs/TESTING.md).
 
 ## What it does
 
@@ -42,7 +42,7 @@ A Home Assistant integration for smart cat litter boxes that share the UBPet / A
 
 ## Installation
 
-From `2026.11.10.1`, setup selects the app signing key automatically based on the app and region. Existing entries keep using the key stored for the account.
+The known app signing keys are predefined and selected automatically for the chosen provider and region. Setup only needs the account details. Saved entry credentials are retained; an override is available in advanced options. [App data and licensing scope](docs/APP_SCHLUESSEL.md).
 
 Home Assistant Core **2023.6.0 or newer**, see [hacs.json](hacs.json). The state of the versions actually tested is described in [TESTING.md](docs/TESTING.md).
 
@@ -138,7 +138,7 @@ Recommended topics:
 
 ## Origin and license status
 
-Cat Litter Hub source and artwork from release 2026.11.09.1 are available under the [MIT License](LICENSE), copyright seb5594 (Sebastian Schmidt). Earlier upstream commits and release archives retain their respective rights status. The [source notes](docs/PROVENANCE.md) document the project’s origins and the provider requirements. The separate [vendor data notice](custom_components/ubpet_cat_litter_hub/LICENSE-SCOPE.txt) describes the scope of the license.
+The earlier blanket MIT statement for `2026.11.09.1` was not supported for remaining upstream-derived code. The `2026.11.19.1` candidate replaces the implementations identified in the HACS review and records the installable distribution. The [MIT License](LICENSE) covers the project implementation and original artwork in this source snapshot; it does not retroactively relicense older archives. [PROVENANCE.md](docs/PROVENANCE.md) describes the rewrite and its review limits. The HACS submission remains a draft.
 
 <!-- support:begin (generated, shared text) -->
 ## Say thanks

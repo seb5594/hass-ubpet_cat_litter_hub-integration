@@ -1,57 +1,49 @@
-# Architecture and extensions
+# Architektur und Erweiterungen
 
-## Data flow
+## Datenfluss
 
-`providers.json` is the only place that knows brands and regions: regions with host and countries, time zone rules for the pre-selection, and every provider with its app profile, allowed regions and optional per-region host/app overrides. `providers.py` only reads this data. `mobile_apps.json` stores the shared product and each verified app code. The current profiles form the app ID as `product + "00" + app code + "6"`. The selected profile determines the app code and the signing key from `vendor_app_keys.json`. Account entries store the resolved app ID, product and key.
+`providers.json` hält Anbieter, Regionen, Hosts und Regeln für die Vorauswahl. `providers.py` wertet diese Daten aus; es probiert keine anderen Regionen durch. `mobile_apps.json` beschreibt die bekannten Produkt- und App-Kennungen. Die bekannten App-Schlüssel sind in `vendor_app_keys.json` als getrennte Herstellerdaten vordefiniert. Explizite Eingabe, gespeicherter Eintragswert und ein eindeutig passender lokaler Wert haben Vorrang vor dem Standardprofil. `app_credentials.py` liest für die lokale Wiederverwendung nur Konfigurationsdaten derselben HTTPS-Origin, App- und Produktkennung; alte Implementierungen werden nicht importiert. Abweichende individuelle App-IDs erhalten keinen geratenen Standardschlüssel. Herkunft und begrenzter Lizenzumfang stehen in [APP_SCHLUESSEL.md](APP_SCHLUESSEL.md).
 
-**Adding a brand:** add the provider to `providers.json` with its verified app profile and regions. Use `hosts` or `region_apps` for regional differences. A new app profile requires a verified code in `mobile_apps.json` and its corresponding key in `vendor_app_keys.json`. Add a test in `.github/tests/test_derived_data.py` and update translations if the provider introduces a new region.
+`cloud_http.py` tauscht signierte HTTP-Nachrichten aus und prüft die Antwortform. `http_profile.json` hält die bisherigen statischen Kompatibilitätsheader und den Timeout als Daten fest; darin stehen keine Signierschlüssel. `api.py` beschreibt die Endpunkte und verwaltet Account-Typen, gesperrte Zugangsdaten, die einmalige Erneuerung nach HTTP 401 und den begrenzten Zwischenspeicher optionaler Antworten. Die Anmeldung ist mit einem Lock geschützt. Pro Kontenabgleich laufen höchstens vier HTTP-Aufrufe gleichzeitig im Executor; fehlende optionale Endpunkte werden eine Stunde lang nicht erneut abgefragt.
 
-**Region pre-selection:** country from the Home Assistant configuration, then time zone, then EU. The basis (`EU · DE`, `NA · America/Chicago`) is shown in the form so that a guess is recognisable as one. The integration deliberately does not try several servers: a wrong region returns the same answer as a wrong password and would pile up failed attempts.
+`mqtt.py` ist der Binärcodec. `transport.py` verwaltet je Konfigurationseintrag genau eine TLS-Verbindung zu Paho für Meldungen und Befehle. Eine Broker-Bestätigung bedeutet keine Bestätigung einer Gerätebewegung. Nach einem Verbindungsaufbau muss erst wieder ein aktueller Gerätestatus eintreffen.
 
-`api.py` contains the shared signed REST client. HTTP calls run outside the Home Assistant event loop; at most four requests run concurrently per dashboard refresh. Authentication is locked. A rejected session is renewed at most once; clear password errors stop further automatic attempts of that client. Optional endpoints that are missing have a bounded negative cache and never delete existing measurements.
+`coordinator.py` verbindet REST, MQTT und den Verlauf. Push-Meldungen verschieben nicht den regelmäßigen REST-Termin. Wiederholte Hinweise werden zu einer verzögerten Aktualisierung zusammengefasst. Beim Entladen werden Verbindungen, Warteaufgaben und geplante Aufrufe beendet.
 
-`transport.py` manages exactly one Paho connection to the vendor's TLS broker per config entry. Status and commands share the same session. Broker acknowledgements do not confirm that a movement was executed. After a reconnect, device states have to arrive again before movement commands become available.
+`history.py` übernimmt Deduplizierung, Zeitnormalisierung, begrenzte Speicherung und Auswertungen ohne Home-Assistant-Abhängigkeit. Der Speicher heißt `ubpet_cat_litter_hub.<entry_id>.visit_analytics`; übernommene Einträge lesen beim ersten Start den bisherigen Speicher `ubpet.<old_entry_id>.visit_analytics`. Datensätze werden nach Gerät und Datenstrom unterschieden.
 
-`coordinator.py` ties together REST, MQTT and the local history. Push messages change data and notify entities without shifting the regular REST schedule. Repeated visit/config hints are merged into one delayed refresh. On unload, tasks, connections and delayed calls are stopped.
+## Messwerte und Einstellungen
 
-`history.py` holds, without Home Assistant dependencies, the deduplication, time normalisation, bounded history and calculations. The store is named `ubpet_cat_litter_hub.<entry_id>.visit_analytics`; adopted entries read the old integration's store `ubpet.<old_entry_id>.visit_analytics` on first start. Records are distinguished per device and stream; numerically identical IDs of different litter boxes do not collide.
+`metrics.json` enthält die Metadaten der Sensoren und binären Sensoren. `catalog.py` übersetzt diese in Home-Assistant-Beschreibungen. `readings.py` liefert die Werte und Zusatzattribute aus dem aktuellen Snapshot. Ein einziger Sensoradapter kann eine Box oder eine Katze darstellen. Fehlende und unbekannte Werte bleiben unbekannt; ein unbekannter REST-Statuscode wird nicht als laufende Reinigung ausgegeben.
 
-`entities.py` bundles the base classes of all platforms (`UbpetDeviceEntity`, `UbpetCatEntity` and the write paths for reminder and time periods), availability, discovery of new devices and cats, and hardware capabilities. `box_config.py` reads pure configuration data (reminder, weekdays, time periods) without a Home Assistant dependency. Entity unique IDs start with the entry's `namespace`: its own entry ID or, for an adopted entry, the ID of the old one.
+`settings.py` kennt Einstellungen als Daten: Familie, Plattform, Quellfeld und Protokolloptionen. Lesen und Planen sind reine Operationen. `SettingWrite` beschreibt einen Auftrag mit Methode, Argumenten und den nach Erfolg zu übernehmenden Feldern. Die Plattformen für Schalter, Uhrzeit, Zahlen und Auswahl sind kleine Adapter auf dieses Modell. Der lokale Schätzschwellwert einer Katze wird weiterhin ausschließlich im Verlaufsspeicher geändert.
 
-`legacy.py` adopts entries of the old `ubpet` domain: extend the device with the new entry, move the entities, and only then detach the old entry from the device (Home Assistant would otherwise delete the entities with it). This is triggered once from the menu of the config flow; the emptied old entry is only removed if nothing is attached to it anymore. Cat device identifiers are separated per account. Removed cloud devices are not deleted from the Home Assistant device registry automatically.
+`HubEntity` bindet Beschreibung, Ziel und Kontonamensraum zusammen. `HubSettingEntity` führt Schreibaufträge je Box nacheinander aus und übernimmt erst nach Erfolg die bestätigten Felder in den neuesten Snapshot. Fehlende Zeitplanfelder führen zum Abbruch; sie werden nicht durch Standarduhrzeiten ersetzt. Die Geräte- und Entitätsregistrierung wird nicht wegen eines vorübergehend fehlenden Werts gelöscht. Bereits registrierte Einstellungen werden auch bei aktuell fehlenden Feldern wieder angelegt.
 
-`compat.py` confines version differences to a few places: coordinator arguments, frozen entity descriptions, device info and reauth. The feature set is not limited by an artificially high minimum core version.
+`legacy.py` übernimmt zuerst Geräte und Entitäten in den neuen Eintrag und löst danach die alte Zuordnung. Sonst könnte Home Assistant die Entitäten beim Entfernen des alten Eintrags löschen. Der `namespace` bleibt bei einer Übernahme die alte Eintrags-ID. Katzengeräte sind je Konto getrennt. `compat.py` kapselt Unterschiede der unterstützten Core-Versionen.
 
-## Derived values
+## Neue Anbieter und Sensoren
 
-Everything the vendor API does not provide itself is calculated in `history.py` from observed records and stored durably: visits and cleans today (local day of the Home Assistant time zone), cleans since the bin reset, last clean, cat that used the box last, and weight at the last visit. Cleans are `eventType` 31; according to [bojanrajkovic/upet-hass#6](https://github.com/bojanrajkovic/upet-hass/issues/6) this is inferred from timing and not confirmed for every firmware. Known event numbers (3, 21, 31) get the name `event_name` on the event bus; unknown ones stay numeric.
+1. Einen Anbieter mit belegtem App-Profil und Regionen in `providers.json` eintragen. Regionale Abweichungen gehören in `hosts` oder `region_apps`. Eine neue App-Kennung muss als Protokollbefund belegt sein; keine fremden Implementierungen übernehmen; Herkunft und Rechtsstatus neuer Anwendungswerte gesondert dokumentieren.
+2. Für einen Messwert Quelle, Einheit, unbekannten Zustand und Wertebereich festlegen. Metadaten in `metrics.json` ergänzen; die Projektion kommt nach `readings.py`. Gleitende Zähler verwenden `measurement`, weil sie auch ohne Reset sinken können.
+3. Für eine Einstellung eine Definition und gegebenenfalls eine neue Familie in `settings.py` ergänzen. Auftrag und Erhalt anderer Felder mit synthetischen Daten testen.
+4. Neue Übersetzungsschlüssel in `strings.json` und allen `translations/*.json` ergänzen. Englische Kommentare und Docstrings beibehalten. Die Oberfläche folgt der HA-Benutzersprache; ältere Core-Versionen können bei Ausnahmen nur englischen Ersatztext zeigen.
+5. Herkunft prüfen, Bericht aktualisieren und den Paketbestand bewusst neu erfassen. Der Vergleich mit fremdem Code ersetzt keine Rechteprüfung: siehe [LIZENZPRUEFUNG.md](LIZENZPRUEFUNG.md).
 
-## Dashboard cards
+Auswertungen für Besuche, Reinigungen und Gewichte stammen aus gespeicherten Herstellerdatensätzen. Ereignistyp 31 für abgeschlossene Reinigung ist ein Forschungsbefund, nicht für jede Firmware bestätigt. Unbekannte Warncodes, medizinische Interpretationen, OTA-Befehle und Kamerabilder werden nicht als gesicherte Funktionen ergänzt.
 
-`frontend/ubpet-cards.js` holds both cards as plain custom elements without a build step. `frontend.py` serves the file at `/ubpet_cat_litter_hub/ubpet-cards.js` and loads it in every frontend session through `add_extra_js_url` (version in the query string for cache busting), once per Home Assistant run. Cards never use entity IDs: they index `hass.entities` by device and `"<domain>:<translation_key>"`, so a new entity only needs a translation key to be usable. `.github/tests/test_cards.py` verifies that every key the script references exists in `strings.json`. Card texts that Home Assistant cannot translate itself (editor labels) are in the `TEXTS` table; entity names, states and units come from Home Assistant.
+## Dashboard und Übersetzungen
 
-## Languages
+`frontend/ubpet-cards.js` enthält eigene Custom Elements ohne Build-Schritt. `frontend.py` registriert sie einmal pro HA-Lauf und verwendet eine Versionskennung zum Cache-Wechsel. Die Karten finden Entitäten über Gerät und Übersetzungsschlüssel. Texte, die HA selbst nicht übersetzen kann, stehen in `TEXTS`; Entitätsnamen, Zustände und Einheiten liefert HA.
 
-All visible texts live in `strings.json` (English, the source) and `translations/<language>.json`. State values are keys (`standby`, `inside`, `weekdays` …), not texts, and are translated through `state`. Error messages go through `exceptions` (`translated_error` in `compat.py`; older core versions fall back to English). The language follows the Home Assistant user language automatically; if a translation is missing, English is shown. `python .github/checks/project.py` checks every language file for identical keys, non-empty texts and identical placeholders.
-
-## New sensors
-
-Before adding an entity, the data source, unit, unknown state and valid range must be clear. Missing fields do not mean `0` or `False`. Rolling counters use `measurement` because they can decrease even without a reset. A calculated remainder up to the API bin capacity is not an additional physical fill-level measurement.
-
-Protocol fields and their mapping are in `mqtt.py`. Full state messages use proto3 zero values for omitted scalars. RISP checksums and lengths are verified before evaluation. A late-arriving old state snapshot must not overwrite a newer device state.
-
-Unconfirmed warning codes, camera images, OTA commands and medical interpretations are not exposed as reliable sensors. Known starting points are listed in [SOURCES.md](SOURCES.md).
-
-## Tests
-
-Regular run:
+## Tests und Paketprüfung
 
 ```bash
+# Run project tests without vendor credentials.
 python -m pip install -r .github/dev/requirements-dev.txt
 python -m pytest -c .github/dev/pyproject.toml --rootdir . .github/tests
 python .github/checks/project.py
+python tools/provenance.py check
 ```
 
-With a real core installation, also pass `.github/ha_tests` to pytest. The shared engine creates separate environments with a matching Python and the test plugin for this. Regular tests need no vendor accounts.
-
-The brand artwork is an SVG in `assets/cat-litter-hub.svg`. `resvg-py` and `python tools/build_brand.py` render the four integration PNGs from it. The rendered files do not have to be regenerated at runtime.
+Mit echtem Core zusätzlich `.github/ha_tests` ausführen. Vollständige Setup- und Registry-Tests benötigen die passende HA-Testbibliothek und werden im vorhandenen Compatibility-Workflow ausgeführt. Core 2023.6.0 bleibt das deklarierte Minimum. Die bestehende private Engine wird anhand des Pins in den Workflow-Dateien wiederverwendet.

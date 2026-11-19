@@ -15,12 +15,7 @@ APPS: dict[str, dict[str, str]] = {
     for name, code in _MOBILE_APPS["app_codes"].items()
 }
 _REGISTRY = json.loads((_DIRECTORY / "providers.json").read_text(encoding="utf-8"))
-
-# This data file is optional and is supplied independently from the MIT-licensed source.
-try:
-    _BUNDLED_SIGNING_KEYS = json.loads((_DIRECTORY / "vendor_app_keys.json").read_text(encoding="utf-8"))
-except (OSError, ValueError):
-    _BUNDLED_SIGNING_KEYS = {}
+_PREDEFINED_APP_KEYS = json.loads((_DIRECTORY / "vendor_app_keys.json").read_text(encoding="utf-8"))
 
 REGIONS: dict[str, str] = {name: region["host"] for name, region in _REGISTRY["regions"].items()}
 _COUNTRY_REGION = {
@@ -77,14 +72,12 @@ def credentials(provider: str, region: str) -> dict[str, str]:
     return dict(APPS[profile.app_for(region)])
 
 
-def bundled_signing_key(provider: str, region: str) -> str | None:
-    """Return the optional key for the configured app profile."""
-    if not isinstance(_BUNDLED_SIGNING_KEYS, dict):
-        return None
+def predefined_app_key(provider: str, region: str) -> str | None:
+    """Select the published vendor data for the exact configured app profile."""
     profile = PROVIDERS[provider]
     profile.endpoint(region)
-    value = _BUNDLED_SIGNING_KEYS.get(profile.app_for(region))
-    return (value.strip() or None) if isinstance(value, str) else None
+    value = _PREDEFINED_APP_KEYS.get(profile.app_for(region))
+    return value if isinstance(value, str) and value else None
 
 
 def suggest_region_with_basis(country: str | None, time_zone: str | None = None) -> tuple[str, str]:

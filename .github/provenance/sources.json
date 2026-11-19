@@ -1,0 +1,312 @@
+{
+  "observed_at": "2026-11-18",
+  "purpose": "Research snapshots; no redistribution permission inferred.",
+  "snapshots": [
+    {
+      "repository": "aderusha/upet-hass",
+      "ref": "refs/remotes/origin/feature/meowant-support",
+      "sha": "9d0ac9879207f0d3d15b1a6ac329ff322ccb0fc2",
+      "license_files": []
+    },
+    {
+      "repository": "aderusha/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "3b8af41ddb13104bb3e2a0249ca226a8bb6b993f",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/box-diagnostics",
+      "sha": "bdc045db538b18a4001e0b90d3f662bfb29d506c",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/fork-maintenance",
+      "sha": "e69dbe0872e092b3ddabe7dff6fa581e78d5ae26",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "36a25f16392f6b26829c62ed6582114339f95ee6",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/mqtt-push",
+      "sha": "856a45f6149ec522f3d5c257cc0c327d8cb66f45",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/box-controls",
+      "sha": "0ab5824bdf888aa757b1ca79c032a127db2528b2",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/box-sensors",
+      "sha": "c72a8f46dc5fa793fdf36e91be4fd0d3fe5c90ce",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/capability-gating",
+      "sha": "0e6a4cac64389640dca5deff5e999a82c42213db",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/cat-activity",
+      "sha": "8c79e5e6a62dfebe048fdefde19364ed4ad35579",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/cat-inside",
+      "sha": "f6259bf8d8966561c9362a4bdae65f3f67adc852",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/cover-presence",
+      "sha": "7cf5f3bf14bd1bc6a9be040b905fe53c25b1e2e9",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/fork-metadata",
+      "sha": "40cdfabe77aea155e0cb701e203bc5be52d44184",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/idle-standby",
+      "sha": "136a6d4b54e98fa8e5b137b794e239208858845b",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/logbook-on-cat-pages",
+      "sha": "475bc74db792446ee033c949c4028fceb29bb019",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/more-events",
+      "sha": "62d37a503c0891b7bca686c601ebff0576cdb668",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/mqtt-connection",
+      "sha": "1de35eaaa3e5866f92b582b803a5847b1d7a8884",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/session-handling",
+      "sha": "cdd439405d39c1bc0aec5fd522f609ffaae61167",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/us-region",
+      "sha": "597c1ed315e9b4b9c7c52959587b31921af82b30",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/stack/visit-log",
+      "sha": "a50a819a142b7e6ba8a84ce325308b46addf6b9c",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/us-region",
+      "sha": "ad6e2513a36883bd535be9531146174e31f7fd7c",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "refs/remotes/origin/visit-log",
+      "sha": "2957a80ca4fdd8a915820f34f95f14ac5b65f7cf",
+      "license_files": []
+    },
+    {
+      "repository": "CrazzyBerg/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "3b8af41ddb13104bb3e2a0249ca226a8bb6b993f",
+      "license_files": []
+    },
+    {
+      "repository": "dantaeyoung/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "9a812ac271f4d1f606e2ba8760c168c715fec3c1",
+      "license_files": []
+    },
+    {
+      "repository": "hermeneanc/robotail-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "57a2d0933045a3c5b40f4842a3d95cc81eb5550d",
+      "license_files": []
+    },
+    {
+      "repository": "Jster42/upet-hass",
+      "ref": "refs/remotes/origin/feature/meowant-support",
+      "sha": "0934de95f57f5a2d653082a4e56dfc139f4ee23f",
+      "license_files": []
+    },
+    {
+      "repository": "Jster42/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "3b8af41ddb13104bb3e2a0249ca226a8bb6b993f",
+      "license_files": []
+    },
+    {
+      "repository": "KennebecRiver66/upet-hass-multi-region",
+      "ref": "refs/remotes/origin/feat/airpet-ubtrobot-hosts",
+      "sha": "6ced8ba0cc84a198e2a7e0e0538a56cf72f06593",
+      "license_files": []
+    },
+    {
+      "repository": "KennebecRiver66/upet-hass-multi-region",
+      "ref": "refs/remotes/origin/main",
+      "sha": "97695d2232ff714498a7adf5cccbac9193a61efe",
+      "license_files": []
+    },
+    {
+      "repository": "lorenzomigliorero/upet-hass",
+      "ref": "refs/remotes/origin/add-deodorant-reset-button",
+      "sha": "890356ad46522b2a5b93511f785dfd2660911263",
+      "license_files": []
+    },
+    {
+      "repository": "lorenzomigliorero/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "3b8af41ddb13104bb3e2a0249ca226a8bb6b993f",
+      "license_files": []
+    },
+    {
+      "repository": "mrozekma/upet-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "9a812ac271f4d1f606e2ba8760c168c715fec3c1",
+      "license_files": []
+    },
+    {
+      "repository": "mrozekma/upet-hass",
+      "ref": "refs/remotes/origin/regions",
+      "sha": "687b1e9da55250de63d4bc73692e92d9835e4ba0",
+      "license_files": []
+    },
+    {
+      "repository": "pfgcoder/meowant-hass",
+      "ref": "refs/remotes/origin/main",
+      "sha": "cee7779114812e7f5e117cba362f7dff50babddc",
+      "license_files": []
+    },
+    {
+      "repository": "PnnnG/upet-hass-multi-region",
+      "ref": "refs/remotes/origin/main",
+      "sha": "722d3d5fa6e6f972dff2482d5152869d86619120",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin",
+      "sha": "3b8af41ddb13104bb3e2a0249ca226a8bb6b993f",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/box-controls",
+      "sha": "b0edf9b78c4dfcfe970ab77fa94b5688cf7b7297",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/box-sensors",
+      "sha": "54e2fde56832c6cb907da259ee58db7ecfb6020f",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/capability-gating",
+      "sha": "ad084ffce3b27ac34a490a2cdb39beae0c781a2a",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/cat-activity",
+      "sha": "bb0a4a8efc9563f39039153cf869c033cf33712d",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/cat-inside",
+      "sha": "c81a9f6efbac7d7767f2e0bc31ac9adf617c2ccb",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/cover-presence",
+      "sha": "b96a4bc31d1b2162c8fea08c0925bfe0227582d8",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/fork-metadata",
+      "sha": "ed43881e21b1062360c24a46452eca09a7ab461f",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/idle-standby",
+      "sha": "1cc40e81e04b08f833da1e4a4e4f8e8e7094ef56",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/logbook-on-cat-pages",
+      "sha": "758d5a18866e38844267de316cf6a7c23e223296",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/more-events",
+      "sha": "a8747ee17d07225c14dde20e7f66a28b2c5c2794",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/mqtt-connection",
+      "sha": "37ebe31d0a915481fbbca0330cd5a0b493de958b",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/session-handling",
+      "sha": "ff5a53e70362f028bfe2bb0b539afc99ee5473c8",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/us-region",
+      "sha": "f3ce24cf712f21fc85b1fcc23a77a1586cc0b4d5",
+      "license_files": []
+    },
+    {
+      "repository": "bojanrajkovic/upet-hass",
+      "ref": "origin/stack/visit-log",
+      "sha": "4bbf3b5d03f2ba081170f5927d5c6d263f5da866",
+      "license_files": []
+    },
+    {
+      "repository": "pfgcoder/meowant-hass",
+      "ref": "origin",
+      "sha": "8c66e172fc166c1c186c65b27c95b5de230b6f67",
+      "license_files": []
+    }
+  ]
+}

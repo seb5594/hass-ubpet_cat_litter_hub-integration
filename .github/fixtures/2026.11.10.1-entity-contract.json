@@ -1,0 +1,1176 @@
+{
+  "reference_commit": "79d669d",
+  "version": "2026.11.10.1",
+  "dashboard": {
+    "devices": {
+      "fixture-box": {
+        "device": {
+          "deviceName": "Fixture box",
+          "serialNumber": "fixture-box",
+          "deviceStatus": 1
+        },
+        "config": {
+          "sensorSwitch": 0,
+          "lazyTime": 120,
+          "cameraSwitch": 1,
+          "lightSwitch": 1,
+          "controlBoardSwitch": 0,
+          "litterType": 0,
+          "boxFullAlertSwitch": 1,
+          "notifyConfigList": [
+            {
+              "type": 4,
+              "notifyConfigId": 8,
+              "openSwitch": 1,
+              "timeHour": 8,
+              "timeMinute": 45,
+              "period": 31
+            },
+            {
+              "type": 1,
+              "openSwitch": 1
+            }
+          ],
+          "disturbTimeConfigList": [
+            {
+              "configId": 3,
+              "openSwitch": 1,
+              "startTimeHour": 22,
+              "startTimeMinute": 30,
+              "endTimeHour": 6,
+              "endTimeMinute": 15
+            }
+          ],
+          "lightTimeConfigList": [
+            {
+              "configId": 4,
+              "openSwitch": 1,
+              "startTimeHour": 8,
+              "startTimeMinute": 0,
+              "endTimeHour": 20,
+              "endTimeMinute": 0
+            }
+          ],
+          "taskConfigList": [
+            {
+              "openSwitch": 1
+            }
+          ],
+          "boxFunctionVOList": [
+            {
+              "firmwareVersion": "fixture_v1"
+            }
+          ]
+        },
+        "box_use_times": {
+          "boxUseTimes": 12,
+          "boxFullAlert": 25,
+          "boxFullMax": 30,
+          "percentage": 40
+        },
+        "deodorant": {
+          "alertSwitch": 1,
+          "remainingDays": 15,
+          "expired": false
+        },
+        "online": {
+          "online": true
+        },
+        "mqtt_state": {
+          "w_mode_app_name": "IDLE",
+          "w_state_app_name": "PENDING",
+          "cat_inside": false
+        }
+      }
+    },
+    "cats": [
+      {
+        "catInfoId": 7,
+        "nickname": "Fixture cat",
+        "weight": 4.2,
+        "number": 9,
+        "costTime": 57
+      }
+    ]
+  },
+  "entities": [
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_box_status",
+      "key": "box_status",
+      "device_class": "enum",
+      "options": [
+        "standby",
+        "running",
+        "paused"
+      ],
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "standby",
+      "expected_attributes": {
+        "device_status_code": 1,
+        "mqtt_work_state": "PENDING",
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_empty_waste_bin_reminder_days",
+      "key": "empty_waste_bin_reminder_days",
+      "device_class": "enum",
+      "entity_category": "diagnostic",
+      "options": [
+        "off",
+        "every_day",
+        "weekdays",
+        "weekend",
+        "custom"
+      ],
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "weekdays",
+      "expected_attributes": {
+        "days": [
+          "monday",
+          "tuesday",
+          "wednesday",
+          "thursday",
+          "friday"
+        ],
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_box_use_times",
+      "key": "box_use_times",
+      "state_class": "measurement",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 12,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_waste_bin_level",
+      "key": "waste_bin_level",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "%",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 40,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_waste_bin_last_reset",
+      "key": "waste_bin_last_reset",
+      "device_class": "timestamp",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_box_full_max",
+      "key": "box_full_max",
+      "state_class": "measurement",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 30,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_box_full_alert",
+      "key": "box_full_alert",
+      "state_class": "measurement",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 25,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_deodorant_remaining_days",
+      "key": "deodorant_remaining_days",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "d",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 15,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_auto_clean_delay_current",
+      "key": "auto_clean_delay_current",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "min",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 2.0,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_firmware_version",
+      "key": "firmware_version",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "fixture_v1",
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_wifi_name",
+      "key": "wifi_name",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_mqtt_work_mode",
+      "key": "mqtt_work_mode",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "IDLE",
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_mqtt_work_state",
+      "key": "mqtt_work_state",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "PENDING",
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_mqtt_work_cause",
+      "key": "mqtt_work_cause",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_last_rest_update",
+      "key": "last_rest_update",
+      "device_class": "timestamp",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": false,
+      "value_property": "native_value",
+      "expected_value": "2026-11-18T00:00:00+00:00",
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_last_mqtt_update",
+      "key": "last_mqtt_update",
+      "device_class": "timestamp",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": false,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_remaining_bin_uses",
+      "key": "remaining_bin_uses",
+      "state_class": "measurement",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 18.0,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_last_visit",
+      "key": "last_visit",
+      "device_class": "timestamp",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_mqtt_pet_position",
+      "key": "mqtt_pet_position",
+      "device_class": "enum",
+      "entity_category": "diagnostic",
+      "options": [
+        "inside",
+        "away"
+      ],
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "away",
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_visits_today",
+      "key": "visits_today",
+      "state_class": "total_increasing",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_cleans_today",
+      "key": "cleans_today",
+      "state_class": "total_increasing",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_last_clean",
+      "key": "last_clean",
+      "device_class": "timestamp",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_cleans_since_bin_reset",
+      "key": "cleans_since_bin_reset",
+      "state_class": "measurement",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_last_used_by",
+      "key": "last_used_by",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_fixture-box_scheduled_cleans",
+      "key": "scheduled_cleans",
+      "state_class": "measurement",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 1,
+      "expected_attributes": {
+        "serial_number": "fixture-box"
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_weight",
+      "key": "cat_weight",
+      "device_class": "weight",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "kg",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 4.2,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_visits",
+      "key": "cat_visits",
+      "state_class": "measurement",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 9,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_cost_time",
+      "key": "cat_cost_time",
+      "device_class": "duration",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "s",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 57,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_last_visit_duration",
+      "key": "cat_last_visit_duration",
+      "device_class": "duration",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "s",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_pee_visits_24h",
+      "key": "cat_pee_visits_24h",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "visits",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null,
+        "classification": "duration_estimate",
+        "threshold_seconds": 100
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_poo_visits_24h",
+      "key": "cat_poo_visits_24h",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "visits",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null,
+        "classification": "duration_estimate",
+        "threshold_seconds": 100
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_last_pee",
+      "key": "cat_last_pee",
+      "device_class": "timestamp",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null,
+        "classification": "duration_estimate",
+        "threshold_seconds": 100
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_last_poo",
+      "key": "cat_last_poo",
+      "device_class": "timestamp",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null,
+        "classification": "duration_estimate",
+        "threshold_seconds": 100
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_last_visit",
+      "key": "cat_last_visit",
+      "device_class": "timestamp",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_visits_24h",
+      "key": "cat_visits_24h",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "visits",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_duration_24h",
+      "key": "cat_duration_24h",
+      "device_class": "duration",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "s",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_average_duration_24h",
+      "key": "cat_average_duration_24h",
+      "device_class": "duration",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "s",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_maximum_duration_24h",
+      "key": "cat_maximum_duration_24h",
+      "device_class": "duration",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "s",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_weight_change",
+      "key": "cat_weight_change",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "kg",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_visits_today",
+      "key": "cat_visits_today",
+      "state_class": "total_increasing",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "sensor",
+      "unique_id": "fixture-account_cat_7_cat_last_visit_weight",
+      "key": "cat_last_visit_weight",
+      "device_class": "weight",
+      "state_class": "measurement",
+      "native_unit_of_measurement": "kg",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": null,
+      "expected_attributes": {
+        "history_source": "observed_vendor_records",
+        "history_complete_24h": false,
+        "cat_info_id": 7,
+        "nickname": "Fixture cat",
+        "picture": null
+      }
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_online",
+      "key": "online",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_deodorant_expired",
+      "key": "deodorant_expired",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_sensor_switch",
+      "key": "sensor_switch",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_camera_switch",
+      "key": "camera_switch",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_control_board_switch",
+      "key": "control_board_switch",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_cat_inside",
+      "key": "cat_inside",
+      "device_class": "occupancy",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_cat_nearby",
+      "key": "cat_nearby",
+      "device_class": "occupancy",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_cover_open",
+      "key": "cover_open",
+      "device_class": "problem",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_drum_not_in_place",
+      "key": "drum_not_in_place",
+      "device_class": "problem",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_drum_stuck",
+      "key": "drum_stuck",
+      "device_class": "problem",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_scale_fault",
+      "key": "scale_fault",
+      "device_class": "problem",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_camera_fault",
+      "key": "camera_fault",
+      "device_class": "problem",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_light",
+      "key": "light",
+      "device_class": "light",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_firmware_updating",
+      "key": "firmware_updating",
+      "device_class": "update",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_mqtt_connected",
+      "key": "mqtt_connected",
+      "device_class": "connectivity",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_waste_bin_full",
+      "key": "waste_bin_full",
+      "device_class": "problem",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "binary_sensor",
+      "unique_id": "fixture-account_fixture-box_history_truncated",
+      "key": "history_truncated",
+      "device_class": "problem",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": null
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_auto_clean",
+      "key": "auto_clean",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_deodorant_alert",
+      "key": "deodorant_alert",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_empty_waste_bin_reminder",
+      "key": "empty_waste_bin_reminder",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_monday",
+      "key": "reminder_monday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_tuesday",
+      "key": "reminder_tuesday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_wednesday",
+      "key": "reminder_wednesday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_thursday",
+      "key": "reminder_thursday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_friday",
+      "key": "reminder_friday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_saturday",
+      "key": "reminder_saturday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_reminder_sunday",
+      "key": "reminder_sunday",
+      "entity_category": "config",
+      "entity_registry_enabled_default": false,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_do_not_disturb",
+      "key": "do_not_disturb",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_light_schedule",
+      "key": "light_schedule",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_child_lock",
+      "key": "child_lock",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_foreign_object_detection",
+      "key": "foreign_object_detection",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_shake_mode",
+      "key": "shake_mode",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": false
+    },
+    {
+      "platform": "switch",
+      "unique_id": "fixture-account_fixture-box_box_full_alert",
+      "key": "box_full_alert",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "is_on",
+      "expected_value": true
+    },
+    {
+      "platform": "number",
+      "unique_id": "fixture-account_fixture-box_auto_clean_delay",
+      "key": "auto_clean_delay",
+      "native_unit_of_measurement": "min",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 2.0
+    },
+    {
+      "platform": "number",
+      "unique_id": "fixture-account_cat_7_poo_duration_threshold",
+      "key": "cat_poo_duration_threshold",
+      "native_unit_of_measurement": "s",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 100
+    },
+    {
+      "platform": "number",
+      "unique_id": "fixture-account_fixture-box_box_full_alert_threshold",
+      "key": "box_full_alert_threshold",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": 25
+    },
+    {
+      "platform": "time",
+      "unique_id": "fixture-account_fixture-box_empty_waste_bin_reminder_time",
+      "key": "empty_waste_bin_reminder_time",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "08:45:00"
+    },
+    {
+      "platform": "time",
+      "unique_id": "fixture-account_fixture-box_do_not_disturb_start",
+      "key": "do_not_disturb_start",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "22:30:00"
+    },
+    {
+      "platform": "time",
+      "unique_id": "fixture-account_fixture-box_do_not_disturb_end",
+      "key": "do_not_disturb_end",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "06:15:00"
+    },
+    {
+      "platform": "time",
+      "unique_id": "fixture-account_fixture-box_light_schedule_start",
+      "key": "light_schedule_start",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "08:00:00"
+    },
+    {
+      "platform": "time",
+      "unique_id": "fixture-account_fixture-box_light_schedule_end",
+      "key": "light_schedule_end",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "native_value",
+      "expected_value": "20:00:00"
+    },
+    {
+      "platform": "select",
+      "unique_id": "fixture-account_fixture-box_empty_waste_bin_reminder_days_select",
+      "key": "empty_waste_bin_reminder_days_select",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true,
+      "value_property": "current_option",
+      "expected_value": "weekdays"
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_rest_request",
+      "key": "rest_request",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_request_state",
+      "key": "mqtt_request_state",
+      "entity_category": "diagnostic",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_reset_waste_bin",
+      "key": "reset_waste_bin",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_start_clean_up",
+      "key": "mqtt_start_clean_up",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_pause_clean_up",
+      "key": "mqtt_pause_clean_up",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_resume_clean_up",
+      "key": "mqtt_resume_clean_up",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_start_flatten",
+      "key": "mqtt_start_flatten",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_pause_flatten",
+      "key": "mqtt_pause_flatten",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_resume_flatten",
+      "key": "mqtt_resume_flatten",
+      "entity_registry_enabled_default": true
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_start_rise",
+      "key": "mqtt_start_rise",
+      "entity_registry_enabled_default": false
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_mqtt_start_drop",
+      "key": "mqtt_start_drop",
+      "entity_registry_enabled_default": false
+    },
+    {
+      "platform": "button",
+      "unique_id": "fixture-account_fixture-box_reset_deodorant",
+      "key": "reset_deodorant",
+      "entity_category": "config",
+      "entity_registry_enabled_default": true
+    }
+  ]
+}

@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
+import importlib
 import importlib.util
 import sys
+import types
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -13,13 +15,13 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def load(name):
-    spec = importlib.util.spec_from_file_location(
-        "pure_" + name, ROOT / "custom_components/ubpet_cat_litter_hub" / f"{name}.py"
-    )
-    module = importlib.util.module_from_spec(spec)
-    sys.modules[spec.name] = module
-    spec.loader.exec_module(module)
-    return module
+    # A namespace package allows relative imports without running the HA entry point.
+    package = "catlitter_pure"
+    if package not in sys.modules:
+        module = types.ModuleType(package)
+        module.__path__ = [str(ROOT / "custom_components/ubpet_cat_litter_hub")]
+        sys.modules[package] = module
+    return importlib.import_module(package + "." + name)
 
 
 history = load("history")

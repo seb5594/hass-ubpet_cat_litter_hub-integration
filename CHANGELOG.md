@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026.11.19.1 — Vordefinierte App-Schlüssel und Schalterprüfung
+
+- Die drei bekannten App-Profile mit unveränderten vordefinierten Werten wieder ausliefern. Die normale Einrichtung fragt keinen App-Schlüssel ab; gespeicherte Werte und erweiterte Überschreibungen behalten Vorrang.
+- Herstellerdaten separat mit Quell-Commit, Git-Blob, Prüfsummen und ausdrücklicher Ausnahme von der Projekt-MIT-Lizenz erfassen. Eine Herstellerfreigabe wird nicht behauptet.
+- Sämtliche 16 Schalter durch jeweils Ein und Aus gegen 32 bisherige REST-Aufträge prüfen. Die neue gemeinsame Umsetzung und ihre Grenzen in `docs/SCHALTER.md` dokumentieren.
+- Die auf `main` vorgenommene Umstellung auf die gemeinsame Workflow-Engine übernehmen und das deklarierte Core-Minimum als Testuntergrenze beibehalten.
+
+## 2026.11.18.2 — Kompatibilitätsverträge und lokale App-Schlüssel
+
+- Fehlende Upstream-Freigabe ausdrücklich dokumentieren; der gewählte Weg bleibt die eigene Umsetzung mit erhaltenem Verhalten.
+- Zusätzlich zu 95 Entitätskennungen auch 83 Zustandswerte, alle 41 Sensorattribute und 30 HTTP-Aufrufe gegen synthetische Ergebnisse des bisherigen Stands prüfen.
+- Vorhandene App-Schlüssel für weitere Konten desselben HTTPS-Servers, App- und Produktprofils lokal wiederverwenden. Bei Konflikten oder abweichenden Profilen keine automatische Auswahl treffen; Schlüssel nicht im Formular offenlegen.
+- Numerische Verzögerungswerte als Text weiter akzeptieren, bestehende HTTP-Header beibehalten und bei unbekannter Token-Ablaufzeit keine fortlaufenden Neuanmeldungen auslösen.
+
+## 2026.11.18.1 — Herkunftsprüfung und neue Plattformadapter
+
+- Die im HACS-Review beanstandeten Implementierungen durch gemeinsame Messwertadapter, ein reines Einstellungsmodell und getrennten HTTP-Transport ersetzen. Alle 95 Referenzentitäten behalten Kennungen und Statistik-Metadaten.
+- Gleichzeitige Zeitplanänderungen je Box serialisieren. Fehlende Zeitplanfelder nicht mehr mit Standardwerten überschreiben; fehlgeschlagene Schreibvorgänge verändern den lokalen Zustand nicht.
+- Hersteller-Signierschlüssel aus dem Paket entfernen. Bestehende Konten behalten ihre lokal gespeicherten Werte; neue Konten benötigen einen zulässig verwendbaren Schlüssel für App und Region.
+- Frühere pauschale MIT-Aussage berichtigen. Herkunft, unveränderliche Quellstände und den installierbaren Dateibestand dokumentieren; den Bestand im bestehenden Workflow prüfen.
+- Noch keine erneute HACS-Freigabe und kein Gerätetest dieser Version. Siehe `docs/LIZENZPRUEFUNG.md` für die verbleibenden Veröffentlichungsschritte.
+
 ## 2026.11.10.1
 
 - Select app signing keys automatically for new entries. The vendor data and its license scope notice ship as separate files.

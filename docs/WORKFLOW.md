@@ -1,6 +1,6 @@
 # Workflow and versions
 
-This project uses the existing private engine `seb5594/hass-workflows`, pinned to commit `a8aed7330783e0e82e5df279819eb32ed0b97f11`.
+This project uses the existing private engine `seb5594/hass-workflows`, following its `main` branch, as configured by the maintainer.
 
 - `.github/workflows/ci.yml` calls the shared integration pipeline. Cat Litter Hub publishes from version tags.
 - `.github/workflows/compat.yml` is the matching compatibility caller.
@@ -38,3 +38,7 @@ python .engine/.scripts/project.py package
 Check out the engine outside of the published component folder first. `dist/ubpet_cat_litter_hub.zip` contains only the content of `custom_components/ubpet_cat_litter_hub`: no `.research`, no tests, no Home Assistant credentials and no virtual environments. The engine sets fixed ZIP timestamps and verifies the archive before printing a SHA-256 checksum.
 
 The repository and install ZIP both carry the MIT license. The Marketplace workflow checks HACS and Hassfest without catalog exclusions.
+
+## Herkunft und Paketbestand
+
+Die bestehende Pipeline führt `.github/checks/provenance.py` aus. Sie prüft die festgehaltenen Dateinamen und SHA-256-Werte aus `.github/provenance/distribution.json`; die Liste wird in CI nicht erneuert. Nach dem Paketbau prüft `python tools/provenance.py check --archive dist/ubpet_cat_litter_hub.zip` zusätzlich den tatsächlichen ZIP-Inhalt. Die [Herkunftsprüfung](LIZENZPRUEFUNG.md) beschreibt die Grenzen dieser Prüfung und die Voraussetzungen vor einer erneuten HACS-Vorlage. Der normale Engine-Lauf überspringt `brands` und `topics`; als Nachweis für die Submission ist der separate bestehende Marketplace-Lauf ohne `ignore` erforderlich.

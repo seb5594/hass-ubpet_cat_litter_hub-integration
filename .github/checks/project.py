@@ -20,8 +20,8 @@ codes = apps["app_codes"]
 assert all(re.fullmatch(r"[0-9]", code) for code in codes.values()), "Expected one digit per app profile"
 assert len(set(codes.values())) == len(codes), "App profile codes must be unique"
 vendor_keys = json.loads((component / "vendor_app_keys.json").read_text(encoding="utf-8"))
-assert set(vendor_keys) == set(codes), "Every app profile must have a vendor signing key"
-assert all(isinstance(key, str) and key.strip() for key in vendor_keys.values()), "Empty vendor signing key"
+assert set(vendor_keys) == set(codes), "Every predefined app profile must have a key"
+assert all(isinstance(value, str) and value for value in vendor_keys.values()), "Empty app key"
 assert "vendor_app_keys.json" in (component / "LICENSE-SCOPE.txt").read_text(encoding="utf-8")
 english = json.loads((component / "strings.json").read_text(encoding="utf-8"))
 assert english == json.loads((component / "translations/en.json").read_text(encoding="utf-8")), (

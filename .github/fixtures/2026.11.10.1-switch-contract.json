@@ -1,0 +1,545 @@
+{
+  "reference_commit": "79d669d",
+  "cases": [
+    {
+      "key": "auto_clean",
+      "enabled": true,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 2,
+          "controlSwitch": 1,
+          "optionInt": 120,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "auto_clean",
+      "enabled": false,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 2,
+          "controlSwitch": 0,
+          "optionInt": 120,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "deodorant_alert",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/app/deodorant-block/switch",
+        "body": {
+          "alertSwitch": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "deodorant_alert",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "POST",
+        "path": "/catbox-server/app/deodorant-block/switch",
+        "body": {
+          "alertSwitch": 0,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "empty_waste_bin_reminder",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "empty_waste_bin_reminder",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 0,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_monday",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_monday",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 30,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_tuesday",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_tuesday",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 29,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_wednesday",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_wednesday",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 27,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_thursday",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_thursday",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 23,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_friday",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_friday",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 15,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_saturday",
+      "enabled": true,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 63,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_saturday",
+      "enabled": false,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_sunday",
+      "enabled": true,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 95,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "reminder_sunday",
+      "enabled": false,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePoint/update",
+        "body": {
+          "configId": 8,
+          "functionType": 1,
+          "openSwitch": 1,
+          "timeHour": 8,
+          "timeMinute": 45,
+          "optionInt": 31,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "do_not_disturb",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePeriod/update",
+        "body": {
+          "configId": 3,
+          "functionType": 1,
+          "openSwitch": 1,
+          "startTimeHour": 22,
+          "startTimeMinute": 30,
+          "endTimeHour": 6,
+          "endTimeMinute": 15,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "do_not_disturb",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePeriod/update",
+        "body": {
+          "configId": 3,
+          "functionType": 1,
+          "openSwitch": 0,
+          "startTimeHour": 22,
+          "startTimeMinute": 30,
+          "endTimeHour": 6,
+          "endTimeMinute": 15,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "light_schedule",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePeriod/update",
+        "body": {
+          "configId": 4,
+          "functionType": 0,
+          "openSwitch": 1,
+          "startTimeHour": 8,
+          "startTimeMinute": 0,
+          "endTimeHour": 20,
+          "endTimeMinute": 0,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "light_schedule",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/timePeriod/update",
+        "body": {
+          "configId": 4,
+          "functionType": 0,
+          "openSwitch": 0,
+          "startTimeHour": 8,
+          "startTimeMinute": 0,
+          "endTimeHour": 20,
+          "endTimeMinute": 0,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "child_lock",
+      "enabled": true,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 0,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "child_lock",
+      "enabled": false,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 0,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "foreign_object_detection",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 1,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "foreign_object_detection",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 1,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "shake_mode",
+      "enabled": true,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 6,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "shake_mode",
+      "enabled": false,
+      "initial_state": false,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 6,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "box_full_alert",
+      "enabled": true,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 7,
+          "controlSwitch": 1,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    },
+    {
+      "key": "box_full_alert",
+      "enabled": false,
+      "initial_state": true,
+      "request": {
+        "method": "PUT",
+        "path": "/catbox-server/box/config/switch/update",
+        "body": {
+          "functionType": 7,
+          "controlSwitch": 0,
+          "optionInt": 1,
+          "serialNumber": "fixture-box"
+        }
+      }
+    }
+  ]
+}
