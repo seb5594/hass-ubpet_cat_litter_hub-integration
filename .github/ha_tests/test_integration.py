@@ -388,17 +388,20 @@ async def test_same_email_at_different_providers_creates_independent_entry(coord
     assert result["data"]["password"] == " x "  # spaces can be part of a password
 
 
-async def test_new_app_setup_requires_a_signing_key_before_contacting_the_vendor(coordinator):
+async def test_new_app_setup_uses_the_predefined_profile_without_key_input(coordinator):
     flow = UbpetConfigFlow()
     flow.hass = coordinator.hass
+    flow._async_current_entries = MagicMock(return_value=[])
+    flow.async_set_unique_id = AsyncMock()
+    flow._abort_if_unique_id_configured = MagicMock()
     with (
-        patch("custom_components.ubpet_cat_litter_hub.config_flow._validate") as validate,
+        patch("custom_components.ubpet_cat_litter_hub.config_flow._validate", return_value=[]) as validate,
     ):
         result = await flow.async_step_account(
             {"country": "DE", "region": "eu", "username": "test@example.test", "password": "pw"}
         )
-    assert result["errors"] == {"app_key": "app_key_required"}
-    validate.assert_not_called()
+    assert result["type"] == "create_entry"
+    validate.assert_called_once()
 
 
 @pytest.mark.parametrize(("provider", "region"), [("upet", "eu"), ("airpet", "na"), ("robotail", "eu"), ("meowant", "na")])
@@ -409,6 +412,7 @@ async def test_new_provider_account_uses_only_the_user_supplied_key(coordinator,
     flow._async_current_entries = MagicMock(return_value=[])
     flow.async_set_unique_id = AsyncMock()
     flow._abort_if_unique_id_configured = MagicMock()
+    flow.context = {**flow.context, "show_advanced_options": True}
     form = await flow.async_step_account()
     assert "app_key" in {field.schema for field in form["data_schema"].schema}
     with patch("custom_components.ubpet_cat_litter_hub.config_flow._validate", return_value=[]):
@@ -423,17 +427,19 @@ async def test_reconfiguration_keeps_saved_key_only_for_the_existing_app_region(
     flow = UbpetConfigFlow()
     flow.hass = coordinator.hass
     flow._async_current_entries = MagicMock(return_value=[])
+    flow.async_set_unique_id = AsyncMock()
+    flow._abort_if_unique_id_configured = MagicMock()
     old = {
         "provider": "upet", "region": "eu", "app_key": "saved-key",
         "app_id": "custom-app", "product": "custom-product",
     }
     fields = {"country": "DE", "region": "na", "username": "test@example.test", "password": "pw"}
     with (
-        patch("custom_components.ubpet_cat_litter_hub.config_flow._validate") as validate,
+        patch("custom_components.ubpet_cat_litter_hub.config_flow._validate", return_value=[]),
     ):
         result, errors = await flow._async_submit(fields, old)
-    assert result is None and errors == {"app_key": "app_key_required"}
-    validate.assert_not_called()
+    assert errors == {} and result["type"] == "create_entry"
+    assert result["data"]["app_key"] != "saved-key"
     flow.async_set_unique_id = AsyncMock()
     flow._abort_if_unique_id_configured = MagicMock()
     with (

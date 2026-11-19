@@ -38,6 +38,7 @@ from .providers import (
     endpoint,
     infer_provider,
     infer_region,
+    predefined_app_key,
     suggest_region_with_basis,
 )
 
@@ -140,11 +141,12 @@ class UbpetConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if display_region not in profile.regions:
             display_region = region
         app, same_app = self._app_profile(old, display_region)
-        has_key = bool(same_app and old.get("app_key")) or bool(self._saved_app_key(display_region, app))
-        key_field = vol.Optional if has_key else vol.Required
-        fields[key_field("app_key")] = selector.TextSelector(
-            selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
-        )
+        has_key = bool(same_app and old.get("app_key")) or bool(self._automatic_app_key(display_region, app))
+        if not has_key or self.context.get("show_advanced_options", False):
+            key_field = vol.Optional if has_key else vol.Required
+            fields[key_field("app_key")] = selector.TextSelector(
+                selector.TextSelectorConfig(type=selector.TextSelectorType.PASSWORD)
+            )
         return self.async_show_form(
             step_id="account",
             data_schema=vol.Schema(fields),
@@ -169,7 +171,7 @@ class UbpetConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if not signing_key and same_app:
             signing_key = old.get("app_key")
         if not signing_key:
-            signing_key = self._saved_app_key(selected_region, app)
+            signing_key = self._automatic_app_key(selected_region, app)
         if not signing_key:
             return None, {"app_key": "app_key_required"}
         data = {
@@ -218,6 +220,14 @@ class UbpetConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         saved = [entry.data for domain in (DOMAIN, LEGACY_DOMAIN)
                  for entry in self.hass.config_entries.async_entries(domain)]
         return reusable_app_key({"base_url": endpoint(self._provider, region), **app}, saved)
+
+    def _automatic_app_key(self, region, app):
+        saved = self._saved_app_key(region, app)
+        if saved is not None:
+            return saved
+        if app == credentials(self._provider, region):
+            return predefined_app_key(self._provider, region)
+        return None
 
     def _reconfigure_conflict(self, devices, account, old) -> str | None:
         coordinator = self.hass.data.get(DOMAIN, {}).get(self._existing.entry_id)

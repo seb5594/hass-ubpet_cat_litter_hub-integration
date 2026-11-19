@@ -2,7 +2,7 @@
 
 ## Datenfluss
 
-`providers.json` hält Anbieter, Regionen, Hosts und Regeln für die Vorauswahl. `providers.py` wertet diese Daten aus; es probiert keine anderen Regionen durch. `mobile_apps.json` beschreibt die bekannten Produkt- und App-Kennungen. Der App-Signierschlüssel kommt ausschließlich aus dem lokalen Konfigurationseintrag beziehungsweise einer ausdrücklichen Benutzereingabe. Er wird nicht im Projekt mitgeliefert. `app_credentials.py` kann ihn für ein weiteres Konto aus vorhandenen lokalen Einträgen derselben HTTPS-Origin, App- und Produktkennung übernehmen. Widersprüchliche Werte werden nicht automatisch ausgewählt. Alte Implementierungen werden dafür nicht importiert.
+`providers.json` hält Anbieter, Regionen, Hosts und Regeln für die Vorauswahl. `providers.py` wertet diese Daten aus; es probiert keine anderen Regionen durch. `mobile_apps.json` beschreibt die bekannten Produkt- und App-Kennungen. Die bekannten App-Schlüssel sind in `vendor_app_keys.json` als getrennte Herstellerdaten vordefiniert. Explizite Eingabe, gespeicherter Eintragswert und ein eindeutig passender lokaler Wert haben Vorrang vor dem Standardprofil. `app_credentials.py` liest für die lokale Wiederverwendung nur Konfigurationsdaten derselben HTTPS-Origin, App- und Produktkennung; alte Implementierungen werden nicht importiert. Abweichende individuelle App-IDs erhalten keinen geratenen Standardschlüssel. Herkunft und begrenzter Lizenzumfang stehen in [APP_SCHLUESSEL.md](APP_SCHLUESSEL.md).
 
 `cloud_http.py` tauscht signierte HTTP-Nachrichten aus und prüft die Antwortform. `http_profile.json` hält die bisherigen statischen Kompatibilitätsheader und den Timeout als Daten fest; darin stehen keine Signierschlüssel. `api.py` beschreibt die Endpunkte und verwaltet Account-Typen, gesperrte Zugangsdaten, die einmalige Erneuerung nach HTTP 401 und den begrenzten Zwischenspeicher optionaler Antworten. Die Anmeldung ist mit einem Lock geschützt. Pro Kontenabgleich laufen höchstens vier HTTP-Aufrufe gleichzeitig im Executor; fehlende optionale Endpunkte werden eine Stunde lang nicht erneut abgefragt.
 
@@ -24,7 +24,7 @@
 
 ## Neue Anbieter und Sensoren
 
-1. Einen Anbieter mit belegtem App-Profil und Regionen in `providers.json` eintragen. Regionale Abweichungen gehören in `hosts` oder `region_apps`. Eine neue App-Kennung muss als Protokollbefund belegt sein; keine fremden Schlüssel oder Implementierungen übernehmen.
+1. Einen Anbieter mit belegtem App-Profil und Regionen in `providers.json` eintragen. Regionale Abweichungen gehören in `hosts` oder `region_apps`. Eine neue App-Kennung muss als Protokollbefund belegt sein; keine fremden Implementierungen übernehmen; Herkunft und Rechtsstatus neuer Anwendungswerte gesondert dokumentieren.
 2. Für einen Messwert Quelle, Einheit, unbekannten Zustand und Wertebereich festlegen. Metadaten in `metrics.json` ergänzen; die Projektion kommt nach `readings.py`. Gleitende Zähler verwenden `measurement`, weil sie auch ohne Reset sinken können.
 3. Für eine Einstellung eine Definition und gegebenenfalls eine neue Familie in `settings.py` ergänzen. Auftrag und Erhalt anderer Felder mit synthetischen Daten testen.
 4. Neue Übersetzungsschlüssel in `strings.json` und allen `translations/*.json` ergänzen. Englische Kommentare und Docstrings beibehalten. Die Oberfläche folgt der HA-Benutzersprache; ältere Core-Versionen können bei Ausnahmen nur englischen Ersatztext zeigen.

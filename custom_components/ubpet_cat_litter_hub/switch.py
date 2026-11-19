@@ -1,4 +1,8 @@
-"""Boolean settings use the shared read/plan/commit adapter."""
+"""Expose boolean settings through the shared read/plan/commit adapter.
+
+Device selection, validation and network writes belong to the settings model,
+not to separate switch implementations for each vendor function.
+"""
 
 from homeassistant.components.switch import SwitchEntity, SwitchEntityDescription
 
@@ -13,12 +17,14 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
 
 class SettingSwitch(HubSettingEntity, SwitchEntity):
+    """Adapt the Home Assistant switch interface to one setting definition."""
+
     @property
-    def is_on(self):
+    def is_on(self) -> bool | None:
         return self.setting_value
 
-    async def async_turn_on(self, **kwargs):
+    async def async_turn_on(self, **kwargs) -> None:
         await self.async_change(True)
 
-    async def async_turn_off(self, **kwargs):
+    async def async_turn_off(self, **kwargs) -> None:
         await self.async_change(False)

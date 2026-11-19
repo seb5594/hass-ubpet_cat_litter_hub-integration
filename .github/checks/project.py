@@ -19,7 +19,10 @@ assert re.fullmatch(r"[0-9]{5}", apps["product"]), "Expected a five-digit produc
 codes = apps["app_codes"]
 assert all(re.fullmatch(r"[0-9]", code) for code in codes.values()), "Expected one digit per app profile"
 assert len(set(codes.values())) == len(codes), "App profile codes must be unique"
-assert not (component / "vendor_app_keys.json").exists(), "Vendor keys must not ship in the component"
+vendor_keys = json.loads((component / "vendor_app_keys.json").read_text(encoding="utf-8"))
+assert set(vendor_keys) == set(codes), "Every predefined app profile must have a key"
+assert all(isinstance(value, str) and value for value in vendor_keys.values()), "Empty app key"
+assert "vendor_app_keys.json" in (component / "LICENSE-SCOPE.txt").read_text(encoding="utf-8")
 english = json.loads((component / "strings.json").read_text(encoding="utf-8"))
 assert english == json.loads((component / "translations/en.json").read_text(encoding="utf-8")), (
     "en.json != strings.json"

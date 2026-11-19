@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026.11.19.1 — Vordefinierte App-Schlüssel und Schalterprüfung
+
+- Die drei bekannten App-Profile mit unveränderten vordefinierten Werten wieder ausliefern. Die normale Einrichtung fragt keinen App-Schlüssel ab; gespeicherte Werte und erweiterte Überschreibungen behalten Vorrang.
+- Herstellerdaten separat mit Quell-Commit, Git-Blob, Prüfsummen und ausdrücklicher Ausnahme von der Projekt-MIT-Lizenz erfassen. Eine Herstellerfreigabe wird nicht behauptet.
+- Sämtliche 16 Schalter durch jeweils Ein und Aus gegen 32 bisherige REST-Aufträge prüfen. Die neue gemeinsame Umsetzung und ihre Grenzen in `docs/SCHALTER.md` dokumentieren.
+- Die auf `main` vorgenommene Umstellung auf die gemeinsame Workflow-Engine übernehmen und das deklarierte Core-Minimum als Testuntergrenze beibehalten.
+
 ## 2026.11.18.2 — Kompatibilitätsverträge und lokale App-Schlüssel
 
 - Fehlende Upstream-Freigabe ausdrücklich dokumentieren; der gewählte Weg bleibt die eigene Umsetzung mit erhaltenem Verhalten.

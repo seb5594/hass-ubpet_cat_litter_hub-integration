@@ -1,6 +1,6 @@
 # Workflow and versions
 
-This project uses the existing private engine `seb5594/hass-workflows`, pinned to commit `47e8f4bb0a47622d18bdd3a1f6671ee0312f7469`.
+This project uses the existing private engine `seb5594/hass-workflows`, following its `main` branch, as configured by the maintainer.
 
 - `.github/workflows/ci.yml` calls the shared integration pipeline. Cat Litter Hub publishes from version tags.
 - `.github/workflows/compat.yml` is the matching compatibility caller.

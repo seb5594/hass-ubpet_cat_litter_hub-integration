@@ -1,6 +1,6 @@
 # Device testing
 
-The maintainer successfully tested [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) on a UBPet C20. A hardware test of the replacement client in `2026.11.18.2` is pending. The earlier C20 test is not evidence for this new HTTP client. The exact model of the Robotail test device still has to be checked on its label or in the app.
+The maintainer successfully tested [`v2026.11.03.2`](https://github.com/seb5594/hass-ubpet_cat_litter_hub-integration/releases/tag/v2026.11.03.2) on a UBPet C20. A hardware test of the replacement client in `2026.11.19.1` is pending. The earlier C20 test is not evidence for this new HTTP client. The exact model of the Robotail test device still has to be checked on its label or in the app.
 
 ## Switching over on the UBPet C20
 

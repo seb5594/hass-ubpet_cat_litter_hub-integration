@@ -1,4 +1,4 @@
-# Herkunftsprüfung für 2026.11.18.2
+# Herkunftsprüfung für 2026.11.19.1
 
 Der HACS-Review [#13798](https://github.com/hacs/default/pull/13798#pullrequestreview-5928093514)
 beanstandet zu Recht, dass die bisherige MIT-Angabe übernommenen Code ohne
@@ -123,25 +123,20 @@ Herstellerlogos, Fotos oder zusätzlichen Schriftdateien eingebunden.
 `paho-mqtt` wird als externe Laufzeitabhängigkeit installiert und nicht als
 Quellcode mitgeliefert; seine eigene Lizenz bleibt maßgeblich.
 
-`vendor_app_keys.json` und der automatische Bezug daraus wurden entfernt.
-Neue Pakete enthalten keine dieser Hersteller-Signierwerte. Bestehende oder
-migrierte Konten verwenden ihren lokal gespeicherten Schlüssel weiter. Bei
-einem weiteren Konto wird ein bereits lokal gespeicherter App-Schlüssel
-automatisch wiederverwendet, wenn HTTPS-Server samt Port und Basispfad, App-ID
-und Produktkennung exakt passen. Es werden ausschließlich Konfigurationsdaten
-gelesen und keine Python-Dateien alter Integrationen importiert. Widersprechen
-sich gespeicherte Schlüssel, erfolgt keine automatische Auswahl. Ein explizit
-eingegebener Schlüssel hat Vorrang; gespeicherte Schlüssel werden im Formular
-nicht angezeigt oder vorausgefüllt.
+Die bekannten App-Schlüssel bleiben für die einfache Einrichtung in
+`vendor_app_keys.json` vordefiniert. Der normale Ablauf benötigt keine manuelle
+Schlüsselbeschaffung. Diese Herstellerwerte sind separat im Dateiinventar
+gekennzeichnet und von der Projekt-MIT-Lizenz ausgenommen. Quellstand,
+Git-Blob und Prüfsummen werden in `.github/provenance/vendor-data.json`
+festgehalten. Dadurch wird keine Herstellerfreigabe behauptet oder geschaffen.
+Die Einzelheiten und offenen Fragen zu den Herstellerbedingungen stehen in
+[APP_SCHLUESSEL.md](APP_SCHLUESSEL.md).
 
-Ohne passendes lokales Profil ist bei einer neuen Einrichtung ein zur
-Verwendung freigegebener Schlüssel für die gewählte App und Region erforderlich.
-Beim Wechsel der App-Region wird ein alter Schlüssel nicht automatisch für
-einen anderen Server oder eine andere App übernommen.
-Eine allgemein verfügbare offizielle Ausgabestelle für Fremdintegrationen ist
-nicht verifiziert. Ohne einen zulässig verwendbaren Schlüssel ist deshalb
-keine neue Cloud-Verbindung möglich. Das ist eine separate Frage des
-Dienstzugangs und kein Nachweis über die Lizenz des Integrationscodes.
+Die gesonderte [Schalterprüfung](SCHALTER.md) erläutert die neue Umsetzung der
+konkret beanstandeten `switch.py`. Zusätzlich zu den bisherigen Verträgen werden
+alle 16 Schalter durch jeweils Ein- und Ausschalten mit den 32 bisherigen
+REST-Aufträgen verglichen. Fehlende Besitzerrechte oder eine unterbrochene
+Verbindung verändern den gespeicherten Snapshot nicht.
 
 ## Vor erneuter HACS-Prüfung
 

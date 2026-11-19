@@ -11,7 +11,7 @@ The maintainer confirms that no official permission has been obtained; the
 chosen resolution is replacement of the unlicensed implementations, rather
 than relying on an outstanding grant.
 
-The 2026.11.18.2 candidate replaces the remaining platform implementations with
+The 2026.11.19.1 candidate replaces the remaining platform implementations with
 shared measurement adapters and a pure setting planner. `CloudHTTP` handles
 signed exchange separately from the account client's authentication and caching
 policy. The former switch classes, sensor helpers, time classes and duplicated
@@ -37,16 +37,20 @@ retroactively resolve the status of older commits and archives. The four brand
 PNGs are rendered from the project's self-contained `assets/cat-litter-hub.svg`.
 External dependencies retain their own licenses and are not vendored in the ZIP.
 
-The candidate no longer distributes `vendor_app_keys.json` or loads signing
-keys from bundled files. Existing entries preserve their locally stored key.
-Additional entries reuse an unambiguous locally stored application key only
-when HTTPS origin, port, base path, app ID and product match. No old Python
-implementation is imported and no stored key is exposed in the form. Explicit
-input takes precedence. Without a compatible local profile, new entries require
-a key the user is authorized to use for the selected app and region.
-A generally available official third-party issuance process has
-not been verified. This access question is separate from copyright in the
-integration source; MIT does not grant rights to vendor services or trademarks.
+The predefined app-level values are retained in `vendor_app_keys.json` so a
+new installation does not require users to obtain an app key. Explicit input
+and saved entry credentials take precedence. The values were restored unchanged
+from the public project snapshot recorded in
+[vendor-data.json](../.github/provenance/vendor-data.json). They are classified
+as third-party application data and explicitly excluded from the project's MIT
+grant in the archive's LICENSE-SCOPE.txt and distribution inventory.
+
+Source availability, a separate file and matching hashes do not establish a
+manufacturer grant. Manufacturer permission has not been verified; applicable
+service terms remain a separate question. The [German app-data notes](APP_SCHLUESSEL.md)
+record this limitation without presenting the bundled values as legally cleared.
+The [switch review](SCHALTER.md) explains the replacement of the classes named
+in the HACS review and the 32 frozen on/off request comparisons.
 
 PR #13798 must remain a draft until the replacement has been reviewed, the new
 release has passed the required workflows, and its actual archive has been

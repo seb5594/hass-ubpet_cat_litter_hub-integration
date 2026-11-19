@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "path": "vendor_app_keys.json",
+  "classification": "third-party-application-data",
+  "project_license_grant": "excluded_from_project_MIT",
+  "manufacturer_permission": "not_verified",
+  "source": {
+    "repository": "seb5594/hass-ubpet_cat_litter_hub-integration",
+    "commit": "79d669d84335328e6d6171e57807169639df62d4",
+    "path": "custom_components/ubpet_cat_litter_hub/vendor_app_keys.json",
+    "git_blob": "3c6d02c7c04c9a67d3fc9e83882632f432b0439e"
+  },
+  "sha256": "98f4a4c55a0a3efaecbbe8abc900074e3bc4c836c86b8e694590cf1a4fcb9bcd",
+  "profiles": {
+    "upet": "cef2b7dbe1a426fe921501652926687105bc1f7044e4f4e74d1ad590f594cc4b",
+    "robotail": "3b9cf38b0409760bdfb4cb1e47f586267bf52fcd0b0b6f02d2ce5de56a6b5d69",
+    "airpet": "2ff110ea1fd3c8bf3eebd1c47fda9b6a23d2b7490d702095c17b940f24c24f2a"
+  },
+  "note": "Existing published app-level values, restored unchanged. Source availability is not a rights grant."
+}

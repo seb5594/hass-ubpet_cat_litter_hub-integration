@@ -15,7 +15,20 @@ from zipfile import ZipFile
 ROOT = Path(__file__).resolve().parents[1]
 COMPONENT = ROOT / "custom_components/ubpet_cat_litter_hub"
 INVENTORY = ROOT / ".github/provenance/distribution.json"
-_FORBIDDEN = {"vendor_app_keys.json", "secrets.py", "secrets.py.example", ".env"}
+_FORBIDDEN = {"secrets.py", "secrets.py.example", ".env"}
+
+
+def verify_vendor_data(path, record):
+    if record.get("path") != "vendor_app_keys.json" or record.get("project_license_grant") != "excluded_from_project_MIT":
+        raise ValueError("App data requires an explicit origin record and license scope")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != record.get("sha256"):
+        raise ValueError("Predefined app data differs from the documented source")
+    values = json.loads(raw)
+    digests = {name: hashlib.sha256(value.encode()).hexdigest() for name, value in values.items()
+               if isinstance(value, str) and value}
+    if len(digests) != len(values) or digests != record.get("profiles"):
+        raise ValueError("Predefined app profiles differ from the origin record")
 
 
 def distribution_files(folder=COMPONENT):
@@ -24,6 +37,11 @@ def distribution_files(folder=COMPONENT):
         if "__pycache__" in path.parts or path.suffix in {".pyc", ".pyo"} or path.is_dir():
             continue
         relative = path.relative_to(folder).as_posix()
+        if path.name == "vendor_app_keys.json":
+            if path.resolve() != (COMPONENT / "vendor_app_keys.json").resolve():
+                raise ValueError("Unregistered vendor_app_keys.json")
+            record = json.loads((ROOT / ".github/provenance/vendor-data.json").read_text(encoding="utf-8"))
+            verify_vendor_data(path, record)
         if path.is_symlink() or path.name in _FORBIDDEN or any(part.startswith(".") for part in Path(relative).parts):
             raise ValueError(f"Unerlaubter Paketinhalt: {relative}")
         contents = path.read_bytes()
@@ -62,11 +80,17 @@ def record(review):
             category = "project-artwork"
         elif name in {"mobile_apps.json", "providers.json", "metrics.json", "http_profile.json"}:
             category = "compatibility-data"
+        elif name == "vendor_app_keys.json":
+            category = "third-party-application-data"
         elif name.startswith("LICENSE"):
             category = "license-notice"
         rows[name] = {"sha256": digest, "category": category}
-    data = {"schema": 1, "review": review, "license": "MIT", "legal_clearance": "not_asserted",
-            "scope": "Current installable component only; no retroactive grant for earlier releases.", "files": rows}
+        if category == "third-party-application-data":
+            rows[name]["project_license_grant"] = "excluded_from_project_MIT"
+            rows[name]["origin_record"] = ".github/provenance/vendor-data.json"
+    data = {"schema": 2, "review": review, "project_license": "MIT", "legal_clearance": "not_asserted",
+            "license_exclusions": ["vendor_app_keys.json"],
+            "scope": "Project source and artwork only; no grant for vendor app data or earlier upstream code.", "files": rows}
     INVENTORY.parent.mkdir(exist_ok=True)
     INVENTORY.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 

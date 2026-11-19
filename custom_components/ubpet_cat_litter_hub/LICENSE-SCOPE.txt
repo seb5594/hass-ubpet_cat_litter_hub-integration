@@ -3,5 +3,5 @@ Cat Litter Hub license scope
 The accompanying MIT LICENSE covers the project implementation and original artwork in this source snapshot.
 It does not retroactively relicense upstream implementations or older release archives.
 Protocol identifiers and registry keys are retained for interoperability. Vendor services, apps and trademarks remain subject to their own rights and terms.
-No vendor app signing keys are distributed with this snapshot. Locally configured keys are supplied by the user and are outside this license grant.
+vendor_app_keys.json contains pre-existing vendor application data. The project MIT grant does not extend to that data or to locally supplied keys. Manufacturer permission for the bundled values has not been verified; source availability is not a license grant.
 See docs/PROVENANCE.md and docs/LIZENZPRUEFUNG.md in the repository for the documented rewrite and review limits.

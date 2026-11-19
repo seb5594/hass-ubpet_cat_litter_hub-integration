@@ -1,9 +1,12 @@
 {
-  "schema": 1,
+  "schema": 2,
   "review": "docs/LIZENZPRUEFUNG.md",
-  "license": "MIT",
+  "project_license": "MIT",
   "legal_clearance": "not_asserted",
-  "scope": "Current installable component only; no retroactive grant for earlier releases.",
+  "license_exclusions": [
+    "vendor_app_keys.json"
+  ],
+  "scope": "Project source and artwork only; no grant for vendor app data or earlier upstream code.",
   "files": {
     "__init__.py": {
       "sha256": "49febdfe35371d8a717fbda059bc29b9ffac6450628f09ee11e7ec4700b81acc",
@@ -58,7 +61,7 @@
       "category": "project-source"
     },
     "config_flow.py": {
-      "sha256": "b743c5c80f51705686bf5fbbd45bbc98110c0d06e359aca34820fc3ba386aa5b",
+      "sha256": "da665f2c3a514e4e1db43bff11b117c7f9934b4ef8da946f9aa429a9b9f0defc",
       "category": "project-source"
     },
     "const.py": {
@@ -102,11 +105,11 @@
       "category": "license-notice"
     },
     "LICENSE-SCOPE.txt": {
-      "sha256": "76d37b3dbf0e8d49c65cf39fd83fe9f5291c2fe2851e52a0befc1067747b91f3",
+      "sha256": "190264cc6b7b04fa1582435b2abfbc24679179a50289984ded2784341d2f7c4c",
       "category": "license-notice"
     },
     "manifest.json": {
-      "sha256": "646e112601d2d5d76a1a453efa9fd4c1bdb8f524795cb7936f05028adafeffc9",
+      "sha256": "c64bcb5c6d0580d4ef8081a1866d673cc61b7aea6053a979e74142f3eed07670",
       "category": "project-source"
     },
     "metrics.json": {
@@ -134,7 +137,7 @@
       "category": "compatibility-data"
     },
     "providers.py": {
-      "sha256": "776b1faf23c30f2c708458e3bdced310ddfc59248e4c945f2d60e04b1d473b2b",
+      "sha256": "90c539cc6c538e03191a154135bbca3bc486a394c0ea12f4c524475a5b1716da",
       "category": "project-source"
     },
     "readings.py": {
@@ -154,11 +157,11 @@
       "category": "project-source"
     },
     "strings.json": {
-      "sha256": "4b1da56b92cea356feb49eac38d37920f5d7dc026ae06512f4995357ec7ba79f",
+      "sha256": "2c38f9b24977a25014508bbd2e9602bee9554631969cde218d0fe3e5b5aaa505",
       "category": "project-source"
     },
     "switch.py": {
-      "sha256": "240ba447413169b99a2c56a41edb5f1293efd8f75326acc24f23c3f23967a689",
+      "sha256": "855fb9add2c68791bc10fb24a4c3e68754b9ba6b91984decaee753357d4ba54e",
       "category": "project-source"
     },
     "time.py": {
@@ -174,11 +177,11 @@
       "category": "project-source"
     },
     "translations/de.json": {
-      "sha256": "4f62e60ea3fdcadf88120eebe7d9dee2705e54fea5703a41be2c5a49643d13be",
+      "sha256": "7beac1b9eae018f08f4605ce243c6466553e42353ff30dc077de5dfe8cc6b3fd",
       "category": "project-source"
     },
     "translations/en.json": {
-      "sha256": "4b1da56b92cea356feb49eac38d37920f5d7dc026ae06512f4995357ec7ba79f",
+      "sha256": "2c38f9b24977a25014508bbd2e9602bee9554631969cde218d0fe3e5b5aaa505",
       "category": "project-source"
     },
     "translations/es.json": {
@@ -252,6 +255,12 @@
     "transport.py": {
       "sha256": "1f74dc4ef11d1186417a0ad216f994b3ff922f71abeafd963a001503b066eee7",
       "category": "project-source"
+    },
+    "vendor_app_keys.json": {
+      "sha256": "98f4a4c55a0a3efaecbbe8abc900074e3bc4c836c86b8e694590cf1a4fcb9bcd",
+      "category": "third-party-application-data",
+      "project_license_grant": "excluded_from_project_MIT",
+      "origin_record": ".github/provenance/vendor-data.json"
     },
     "writes.py": {
       "sha256": "44faec3dad63b7dddc8a89f4e5c406e707eebb4a473b588ede3ec88bae7db41b",
