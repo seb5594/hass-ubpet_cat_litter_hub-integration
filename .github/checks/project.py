@@ -52,7 +52,7 @@ for path in component.glob("*.json"):
     json.loads(path.read_text(encoding="utf-8"))
 # The engine runs project checks before installing development requirements.
 if importlib.util.find_spec("ruff") is None:
-    subprocess.run([sys.executable, "-m", "pip", "install", "--disable-pip-version-check", "ruff==0.17.3"], check=True)
+    subprocess.run([sys.executable, "-m", "pip", "install", "--disable-pip-version-check", "ruff==0.17.6"], check=True)
 subprocess.run(
     [
         sys.executable,
