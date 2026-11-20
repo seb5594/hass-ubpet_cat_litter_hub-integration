@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026.11.20
+
+- Publish the first build of the day without a build suffix. Later builds use .1, .2, and so on.
+
 ## 2026.11.19.1 — Vordefinierte App-Schlüssel und Schalterprüfung
 
 - Die drei bekannten App-Profile mit unveränderten vordefinierten Werten wieder ausliefern. Die normale Einrichtung fragt keinen App-Schlüssel ab; gespeicherte Werte und erweiterte Überschreibungen behalten Vorrang.
